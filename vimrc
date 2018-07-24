@@ -56,9 +56,6 @@ match ExtraWhitespace /\s\+$/
 autocmd FileType c,cpp,h
 autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-abbr #b /*********************************************************
-abbr #e *********************************************************/
-
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
   set termencoding=utf-8
 else
@@ -103,9 +100,6 @@ elseif s:uname =~ "Darwin"
 
   set laststatus=2
   set noshowmode
-  python from powerline.vim import setup as powerline_setup
-  python powerline_setup()
-  python del powerline_setup
 
   " neocomplete
   " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -184,7 +178,6 @@ else " linux
 
   set laststatus=2
   set noshowmode
-  source $HOME/.local/lib/python2.7/site-packages/powerline/bindings/vim/plugin/powerline.vim
 
   " neocomplete
   " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
@@ -256,6 +249,8 @@ else " linux
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 endif
+
+
 
 " xclip
 " vi -> shell (mac) : <C-c> -> <Cmd-v>
