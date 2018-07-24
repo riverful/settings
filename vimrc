@@ -93,7 +93,7 @@ elseif s:uname =~ "MINGW64_NT*"
   colo torte
 
 elseif s:uname =~ "Darwin"
-  set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags
+  set tags=tags,./tags,~/workspace/repo/tags,~/workspace/android/tags
   set csprg=/usr/local/bin/cscope
   set csto=0
   set cst
@@ -171,7 +171,7 @@ elseif s:uname =~ "Darwin"
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 else " linux
-  set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags
+  set tags=tags,./tags,~/workspace/repo/tags,~/workspace/android/tags
   set csprg=/usr/bin/cscope
   set csto=0
   set cst
