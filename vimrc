@@ -97,6 +97,7 @@ elseif s:uname =~ "Darwin"
   set csprg=/usr/local/bin/cscope
   set csto=0
   set cst
+  cs add ~/workspace/android/cscope.out
 
   set laststatus=2
   set noshowmode
@@ -175,6 +176,7 @@ else " linux
   set csprg=/usr/bin/cscope
   set csto=0
   set cst
+  cs add ~/workspace/android/cscope.out
 
   set laststatus=2
   set noshowmode
@@ -269,15 +271,15 @@ nmap <F6> :tagexplorer<cr>
 nmap <F7> :bufexplorer<cr>
 nmap <F8> :Tlist<cr>
 
-"nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-"nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-"nmap <C-[>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-"nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
-"
+nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-[>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+
 nmap <C-g>c :!git cherry-pick <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>v :!git revert <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>g :!git ll --grep=<C-R>=expand("<cword>")<CR><CR>
