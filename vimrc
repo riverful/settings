@@ -93,8 +93,13 @@ elseif s:uname =~ "MINGW64_NT*"
   colo torte
 
 elseif s:uname =~ "Darwin"
-  set tags=tags,./tags,~/workspace/repo/tags,~/workspace/android/tags
-  set csprg=/usr/local/bin/cscope
+  set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags
+  if filereadable("/usr/local/bin/cscope")
+    set csprg=/usr/local/bin/cscope
+  endif
+  if filereadable("/usr/bin/cscope")
+    set csprg=/usr/bin/cscope
+  endif
   set csto=0
   set cst
 
@@ -171,8 +176,13 @@ elseif s:uname =~ "Darwin"
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 else " linux
-  set tags=tags,./tags,~/workspace/repo/tags,~/workspace/android/tags
-  set csprg=/usr/bin/cscope
+  set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags
+  if filereadable("/usr/local/bin/cscope")
+    set csprg=/usr/local/bin/cscope
+  endif
+  if filereadable("/usr/bin/cscope")
+    set csprg=/usr/bin/cscope
+  endif
   set csto=0
   set cst
 
@@ -269,14 +279,14 @@ nmap <F6> :tagexplorer<cr>
 nmap <F7> :bufexplorer<cr>
 nmap <F8> :Tlist<cr>
 
-nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
-nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
-nmap <C-[>c :cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <C-[>t :cs find t <C-R>=expand("<cword>")<CR><CR>
-nmap <C-[>e :cs find e <C-R>=expand("<cword>")<CR><CR>
-nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-nmap <C-[>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>s :scs find s <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>g :scs find g <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>c :scs find c <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>t :scs find t <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>e :scs find e <C-R>=expand("<cword>")<CR><CR>
+nmap <C-[>f :scs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap <C-[>i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap <C-[>d :scs find d <C-R>=expand("<cword>")<CR><CR>
 
 nmap <C-g>c :!git cherry-pick <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>v :!git revert <C-R>=expand("<cword>")<CR><CR>
