@@ -274,10 +274,10 @@ ugit() {
 }
 update_scripts_core() {
   cd
-  wget https://github.com/riverful/settings/raw/master/scripts_default.sh
-  wget https://github.com/riverful/settings/raw/master/scripts_core.sh
-  mv scripts_default.sh ~/scripts/
-  mv scripts_core.sh ~/scripts/
+  wget https://raw.githubusercontent.com/riverful/settings/master/script_core.sh
+  wget https://raw.githubusercontent.com/riverful/settings/master/script_default.sh
+  mv script_default.sh ~/scripts/
+  mv script_core.sh ~/scripts/
 }
 
 
