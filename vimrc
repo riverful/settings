@@ -97,7 +97,6 @@ elseif s:uname =~ "Darwin"
   set csprg=/usr/local/bin/cscope
   set csto=0
   set cst
-  cs add ~/workspace/android/cscope.out
 
   set laststatus=2
   set noshowmode
@@ -176,7 +175,6 @@ else " linux
   set csprg=/usr/bin/cscope
   set csto=0
   set cst
-  cs add ~/workspace/android/cscope.out
 
   set laststatus=2
   set noshowmode
