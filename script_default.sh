@@ -200,18 +200,28 @@ install_env() {
 # util
 #########################################################
 mk_cscope_ctags() {
+  local in_file=$1
   path_root_cscope=""
-  if [ "$1" = "." ] ; then
+  if [ "$in_file" = "." ] ; then
     local path_root_cscope="."
     echo "[script] mk_cscope_ctags ALL: ${path_root_cscope}"
-  elif [ -f $1 ] ; then
+  elif [ ! -e "$in_file" ] ; then
+    if [ -e "./cscope.paths" ]; then
+      while read _file_path
+      do
+        path_root_cscope+="$_file_path "
+      done < ./cscope.paths
+      echo "[script] mk_cscope_ctags from list file default, path: ${path_root_cscope}"
+    else
+      echo "[script] mk_cscope_ctags: no input"
+    fi
+  else
     while read _file_path
     do
       path_root_cscope+="$_file_path "
-    done < $1
+    done < $in_file
+    mv $in_file cscope.paths
     echo "[script] mk_cscope_ctags from list file: $1, path: ${path_root_cscope}"
-  else
-    echo "[script] mk_cscope_ctags: no input"
   fi
 
   rm -rf cscope.files cscope.out tags

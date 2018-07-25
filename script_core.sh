@@ -169,19 +169,6 @@ git_cleanup_oversize_lfs() {
   git reflog expire --expire=now --all
   git gc --prune=now --aggressive
 }
-check_last_fail() {
-  local LAST_FAIL_CHECK="sudo last -f /var/log/btmp"
-  local FAILED_IP=`$LAST_FAIL_CHECK | cut -f 10 -d " " | head -n 1`
-  echo "[script] problematic ip : $FAILED_IP"
-  $LAST_FAIL_CHECK
-  echo "[script] whois ip : $FAILED_IP........"
-  whois $FAILED_IP
-}
-compiz_reset() {
-  gconftool-2 --recursive-unset /apps/compiz-1
-  gconftool-2 --recursive-unset /apps/compizconfig-1
-  unity --reset
-}
 java_change() {
   if [ "$1" = "" ]; then
     echo "Usage: java_change [17/18]"
@@ -213,12 +200,6 @@ git_dev_master_diffs() {
   do
     git --no-pager log -1 --oneline $i | sed '/Merge/d' ;
   done
-}
-mmcli_status() {
-  mmcli -m 0
-}
-mmcli_register_home() {
-  mmcli -m 0 --3gpp-register-home
 }
 
 
