@@ -57,6 +57,9 @@ match ExtraWhitespace /\s\+$/
 autocmd FileType c,cpp,h
 autocmd BufWritePre <buffer> :%s/\s\+$//e
 
+"SrcExpl
+let g:SrcExpl_isUpdateTags = 0
+
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
   set termencoding=utf-8
 else
@@ -94,7 +97,7 @@ elseif s:uname =~ "MINGW64_NT*"
   colo torte
 
 elseif s:uname =~ "Darwin"
-  set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags
+  set tags=./tags
   if filereadable("/usr/local/bin/cscope")
     set csprg=/usr/local/bin/cscope
   endif
@@ -177,7 +180,7 @@ elseif s:uname =~ "Darwin"
   let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 else " linux
-  set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags
+  set tags=./tags
   if filereadable("/usr/local/bin/cscope")
     set csprg=/usr/local/bin/cscope
   endif
@@ -276,9 +279,10 @@ nmap <C-r>g :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
 nmap <C-r>3 :set ts=8 sts=8 sw=8 noexpandtab<CR>  " Kernel
 nmap <C-r>4 :set ts=2 sts=2 sw=2 expandtab<CR>    " Android (userspace)
 nmap <C-r>5 :set ts=4 sts=4 sw=4 expandtab<CR>    " Python
-nmap <F6> :tagexplorer<cr>
-nmap <F7> :bufexplorer<cr>
-nmap <F8> :Tlist<cr>
+nmap <F6> :TagbarToggle<cr>
+nmap <F7> :Tlist<cr>
+nmap <F8> :SrcExplToogle<cr>
+nmap <F9> :Gitv<cr>
 
 nmap <C-[>s :scs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-[>g :scs find g <C-R>=expand("<cword>")<CR><CR>
