@@ -36,7 +36,6 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'sjl/gundo.vim'
 Plugin 'gregsexton/gitv'
 Plugin 'SrcExpl'
-Plugin 'Source-Explorer-srcexpl.vim'
 Plugin 'highlight.vim'
 Plugin 'severin-lemaignan/vim-minimap'
 Bundle 'majutsushi/tagbar'
@@ -59,6 +58,7 @@ autocmd BufWritePre <buffer> :%s/\s\+$//e
 
 "SrcExpl
 let g:SrcExpl_isUpdateTags = 0
+let g:SrcExpl_winHeight = 10
 
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
   set termencoding=utf-8
