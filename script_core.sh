@@ -175,7 +175,7 @@ java_change() {
     return
   fi
 
-  _execute_script $1
+  _execute_script n $1
 
   sudo update-alternatives --config java
   sudo update-alternatives --config javac
