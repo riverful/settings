@@ -281,7 +281,7 @@ nmap <C-r>4 :set ts=2 sts=2 sw=2 expandtab<CR>    " Android (userspace)
 nmap <C-r>5 :set ts=4 sts=4 sw=4 expandtab<CR>    " Python
 nmap <F6> :TagbarToggle<cr>
 nmap <F7> :Tlist<cr>
-nmap <F8> :SrcExplToogle<cr>
+nmap <F8> :SrcExplToggle<cr>
 nmap <F9> :Gitv<cr>
 
 nmap <C-[>s :scs find s <C-R>=expand("<cword>")<CR><CR>
