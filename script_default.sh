@@ -105,6 +105,8 @@ reposetdir() {
   fi
 
   cd "${_ANDROID_ROOT}"
+  
+  source build/envsetup.sh
 }
 repolunch() {
   if [ $CONF_ENV != 'None' ]; then
