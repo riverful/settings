@@ -44,7 +44,6 @@ _set_alias() {
   alias tmxls="tmux -2 ls"
   alias tmxattach="tmux -2 attach -t "
 
-  alias ls='ls -hF --color=tty'
   alias grepc="GREP_OPTIONS='color=auto grep"
 }
 
