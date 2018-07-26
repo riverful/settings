@@ -4,7 +4,7 @@
 # core func
 #########################################################
 
-set_shell_env() {
+_set_shell_env() {
   if [[ "$UBUNTU_VERSION" == *"14.04"* ]]; then
     CMD_APT="sudo apt-get"
   else
@@ -19,7 +19,7 @@ set_shell_env() {
 
   echo "[script] Set default env - PS1"
 }
-set_gitconfig() {
+_set_gitconfig() {
   git config --global user.name "none"
   git config --global user.email "noname@noname.com"
   git config --global core.fileMode false
@@ -54,14 +54,14 @@ set_gitconfig() {
   git config --global mergetool.prompt false
 
 }
-set_default_env() {
+_set_default_env() {
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
   export PATH="${ANDROID_JAVA_HOME}/bin:~/binary/archive:~/scripts:~/binary/tools:~/binary/archive:${PATH}"
 
   if [ "$1" = "y" ]; then
-    set_gitconfig
+    _set_gitconfig
   fi
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
@@ -105,6 +105,10 @@ reposetdir() {
   fi
 
   cd "${_ANDROID_ROOT}"
+
+  if [ -e build/envsetup.sh ] ; then
+    source build/envsetup.sh
+  fi
 }
 repolunch() {
   if [ $CONF_ENV != 'None' ]; then
@@ -228,18 +232,19 @@ mk_cscope_ctags() {
   rm -rf cscope.files cscope.out tags
   find $path_root_cscope -type f \( -name '*.py' -o -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.s' -o -name '*.S' \) ! \( -path "*.git*" \) -print > cscope.files
   cscope -b -i cscope.files
-  ctags --sort=foldercase -L cscope.files
+  ctags --sort=foldcase -L cscope.files
 }
-dosunix() {
+_dosunix() {
   dos2unix -f $1
   chmod 644 $1
 }
+export -f _dosunix
 dosunix_files() {
-  find . -name "*.c" -not -path ".git" -exec bash -c 'dosunix "$0"' {} \;
-  find . -name "*.cpp" -not -path ".git" -exec bash -c 'dosunix "$0"' {} \;
-  find . -name "*.h" -not -path ".git" -exec bash -c 'dosunix "$0"' {} \;
-  find . -name "Android.mk" -not -path ".git" -exec bash -c 'dosunix "$0"' {} \;
-  find . -name "Makefile" -not -path ".git" -exec bash -c 'dosunix "$0"' {} \;
+  find . -name "*.c" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
+  find . -name "*.cpp" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
+  find . -name "*.h" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
+  find . -name "Android.mk" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
+  find . -name "Makefile" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
 }
 gitcreate() {
   wget https://github.com/riverful/settings/raw/master/gitignore
@@ -266,8 +271,8 @@ if [ $# -eq 1 ]; then
   fi
 fi
 
-set_default_env $git_replace_apply
-set_shell_env
+_set_default_env $git_replace_apply
+_set_shell_env
 
 echo "[script] Load default script"
 

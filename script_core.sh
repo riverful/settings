@@ -4,7 +4,7 @@
 # core func
 #########################################################
 
-set_java_path() {
+_set_java_path() {
   if [ "$1" = "17" ]; then
     export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
   elif [ "$1" = "18" ]; then
@@ -18,7 +18,7 @@ set_java_path() {
   export PATH="${PATH}:${ANDROID_JAVA_HOME}/bin:$HOME/Library/Android/sdk/platform-tools"
   echo "[script] Set java path: [$JAVA_HOME]"
 }
-set_alias() {
+_set_alias() {
   # usage of rsync
   #   rsync -azrt --exclude '~/xxx' --exclude 'yyy' /mnt/to/ /mnt/from/
   # -e 'ssh -p 2222'
@@ -122,17 +122,17 @@ install_all_pkgs() {
 # util
 #########################################################
 
-parse_git_branch () {
+_parse_git_branch () {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
-get_pid() {
+_get_pid() {
   local NAME_DAEMON=$1
   local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
   for pid in $PID_DAEMON; do
     echo "[script] get_pid: $pid"
   done
 }
-set_ssh_agent() {
+_set_ssh_agent() {
   local NAME_DAEMON='ssh-agent'
   local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
 
@@ -175,7 +175,7 @@ java_change() {
     return
   fi
 
-  execute_script $1
+  _execute_script $1
 
   sudo update-alternatives --config java
   sudo update-alternatives --config javac
@@ -253,7 +253,7 @@ test_check_num_char() {
 # manage scripts
 #########################################################
 
-pgit() {
+_pgit() {
   cd $HOME/$2
   git push $1 master
 }
@@ -270,7 +270,7 @@ ugit() {
   git add .
   git commit -a -m "$NOW"
   git pull $1 master
-  pgit $1 $2
+  _pgit $1 $2
 }
 update_scripts_core() {
   cd
