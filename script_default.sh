@@ -71,6 +71,7 @@ set_default_env() {
 
 #########################################################
 # Android
+#########################################################
 
 reposetdir() {
   export _ANDROID_ROOT="`pwd`"
@@ -232,7 +233,8 @@ mk_cscope_ctags() {
 }
 dosunix() {
   dos2unix -f $1
-  perl -pi -e 's/\r$//g' $1
+  perl -pi -e 's/
+\r$//g' $1
   chmod 644 $1
 }
 dosunix_files() {
