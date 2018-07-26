@@ -35,17 +35,10 @@ Plugin 'fugitive.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'sjl/gundo.vim'
 Plugin 'gregsexton/gitv'
-Plugin 'SrcExpl'
+Plugin 'Source-Explorer-srcexpl.vim'
 Plugin 'highlight.vim'
 Plugin 'severin-lemaignan/vim-minimap'
 Bundle 'majutsushi/tagbar'
-if has('gui_running')
-  echo "gui running"
-elseif s:uname =~ "MINGW64_NT*"
-  echo "Ming running"
-else
-  Bundle 'Shougo/neocomplete.vim'
-endif
 call vundle#end()
 
 filetype on
