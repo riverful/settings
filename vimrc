@@ -30,6 +30,7 @@ set rtp+=~/.vim/bundle/vundle
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'git://git.wincent.com/command-t.git'
+Plugin 'vim-airline/vim-airline'
 Plugin 'fugitive.vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'sjl/gundo.vim'
