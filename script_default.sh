@@ -230,7 +230,7 @@ mk_cscope_ctags() {
   rm -rf cscope.files cscope.out tags
   find $path_root_cscope -type f \( -name '*.py' -o -name '*.c' -o -name '*.cpp' -o -name '*.cc' -o -name '*.h' -o -name '*.s' -o -name '*.S' \) ! \( -path "*.git*" \) -print > cscope.files
   cscope -b -i cscope.files
-  ctags --sort=foldercase -L cscope.files
+  ctags --sort=foldcase -L cscope.files
 }
 dosunix() {
   dos2unix -f $1
