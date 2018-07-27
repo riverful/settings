@@ -44,7 +44,6 @@ _set_alias() {
   alias tmxls="tmux -2 ls"
   alias tmxattach="tmux -2 attach -t "
 
-  alias ls='ls -hF --color=tty'
   alias grepc="GREP_OPTIONS='color=auto grep"
 }
 
@@ -175,7 +174,7 @@ java_change() {
     return
   fi
 
-  _execute_script $1
+  _execute_script n $1
 
   sudo update-alternatives --config java
   sudo update-alternatives --config javac
