@@ -103,75 +103,6 @@ elseif s:uname =~ "Darwin"
   set laststatus=2
   set noshowmode
 
-  " neocomplete
-  " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-  let g:acp_enableAtStartup = 0   " Disable AutoComplPop.
-  let g:neocomplete#enable_at_startup = 1   " Use neocomplete.
-  let g:neocomplete#enable_smart_case = 1   " Use smartcase.
-  let g:neocomplete#sources#syntax#min_keyword_length = 3 " Set minimum syntax keyword length.
-
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-  endif
-
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-  " Plugin key-mappings.
-  inoremap <expr><C-g>     neocomplete#undo_completion()
-  inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-  endfunction
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  " Close popup by <Space>.
-  "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-  " AutoComplPop like behavior.
-  "let g:neocomplete#enable_auto_select = 1
-
-  " Shell like behavior(not recommended).
-  "set completeopt+=longest
-  "let g:neocomplete#enable_auto_select = 1
-  "let g:neocomplete#disable_auto_complete = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-  " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-  " Enable heavy omni completion.
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-  "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-  " For perlomni.vim setting.
-  " https://github.com/c9s/perlomni.vim
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
 else " linux
   set tags=./tags
   if filereadable("/usr/local/bin/cscope")
@@ -186,78 +117,7 @@ else " linux
   set laststatus=2
   set noshowmode
 
-  " neocomplete
-  " Note: This option must be set in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
-  let g:acp_enableAtStartup = 0   " Disable AutoComplPop.
-  let g:neocomplete#enable_at_startup = 1   " Use neocomplete.
-  let g:neocomplete#enable_smart_case = 1   " Use smartcase.
-  let g:neocomplete#sources#syntax#min_keyword_length = 3 " Set minimum syntax keyword length.
-
-  " Define dictionary.
-  let g:neocomplete#sources#dictionary#dictionaries = {
-        \ 'default' : '',
-        \ 'vimshell' : $HOME.'/.vimshell_hist',
-        \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
-
-  " Define keyword.
-  if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
-  endif
-
-  let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-
-  " Plugin key-mappings.
-  inoremap <expr><C-g>     neocomplete#undo_completion()
-  inoremap <expr><C-l>     neocomplete#complete_common_string()
-
-  " Recommended key-mappings.
-  " <CR>: close popup and save indent.
-  inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-  function! s:my_cr_function()
-    return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-    " For no inserting <CR> key.
-    "return pumvisible() ? "\<C-y>" : "\<CR>"
-  endfunction
-  " <TAB>: completion.
-  inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-  " <C-h>, <BS>: close popup and delete backword char.
-  inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-  inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-  " Close popup by <Space>.
-  "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-
-  " AutoComplPop like behavior.
-  "let g:neocomplete#enable_auto_select = 1
-
-  " Shell like behavior(not recommended).
-  "set completeopt+=longest
-  "let g:neocomplete#enable_auto_select = 1
-  "let g:neocomplete#disable_auto_complete = 1
-  "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-
-  " Enable omni completion.
-  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
-  " Enable heavy omni completion.
-  if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-  endif
-  "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-  "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-  "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-
-  " For perlomni.vim setting.
-  " https://github.com/c9s/perlomni.vim
-  let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
 endif
-
-
 
 " xclip
 " vi -> shell (mac) : <C-c> -> <Cmd-v>
@@ -265,6 +125,7 @@ set clipboard=unnamed
 vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
 nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
+" For smart keyboard for iPad
 inoremap jk <esc>
 
 nmap <C-r>r :source $MYVIMRC<CR>

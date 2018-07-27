@@ -118,12 +118,13 @@ repolunch() {
   reposetdir
   cd $_ANDROID_ROOT
 
-  echo "[script] lunching......"
+  echo "[script] source & lunching......"
 
   source build/envsetup.sh
-
-  export `grep -r "TARGET_PRODUCT" ../buildscript/build.log | head -n 1`
-  lunch `grep -r "lunch" ../buildscript/build.log | tail -n 1 | cut -f 4 -d " "`
+  export "`grep -r "^TARGET_PRODUCT" ../buildscript/build.log | head -n 1 | sed "s/^.*TARGET_PRODUCT/TARGET_PRODUCT/"`"
+  export "`grep -r "^PROJECT_NAME" ../buildscript/build.log | head -n 1 | sed "s/^.*PROJECT/PROJECT/"`"
+  export "`grep -r "^SEC_TEMP_SKIP_BOOTLOADER" ../buildscript/build.log | head -n 1 | sed "s/^.*SEC_TEMP/SEC_TEMP/"`"
+  `grep -r "lunch" ../buildscript/build.log | head -n 1 | sed "s/^.*lunch/lunch/"`
 }
 
 adb_wait_clean() {
