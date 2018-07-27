@@ -172,12 +172,10 @@ install_env() {
 
   wget https://github.com/riverful/settings/raw/master/screenrc
   wget https://github.com/riverful/settings/raw/master/vimrc
-  wget https://github.com/riverful/settings/raw/master/cscope_maps.vim
   wget https://github.com/riverful/settings/raw/master/taglist.vim
 
   chmod 644 screenrc
   chmod 644 vimrc
-  chmod 644 cscope_maps.vim
   chmod 644 taglist.vim
 
   rm -rf ~/.vim/plugin
@@ -191,7 +189,6 @@ install_env() {
 
   mv screenrc ~/.screenrc
   mv vimrc ~/.vimrc
-  mv cscope_maps.vim ~/.vim/plugin/cscope_maps.vim
   mv taglist.vim ~/.vim/plugin/taglist.vim
 
   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
