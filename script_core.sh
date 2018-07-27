@@ -271,6 +271,16 @@ ugit() {
   git pull $1 master
   _pgit $1 $2
 }
+sgit() {
+  pushd .
+  if [ "$1" = "" ]; then
+    echo "Usage: sgit [branch]"
+    return
+  fi
+  cd $HOME/$1
+  git status
+  popd
+}
 update_scripts_core() {
   cd
   wget https://raw.githubusercontent.com/riverful/settings/master/script_core.sh
