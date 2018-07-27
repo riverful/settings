@@ -1,10 +1,32 @@
 #!/bin/bash
 
 #########################################################
+# log
+#########################################################
+
+LOG_PREFIX_DEF="[deflt]"
+_log_default() {
+  echo -e "${LOG_PREFIX_DEF}\t[${FUNCNAME[1]}] $1"
+}
+
+
+#########################################################
 # core func
 #########################################################
 
-_set_shell_env() {
+_set_default_env() {
+  export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
+  export ANDROID_JAVA_HOME=$JAVA_HOME
+  export CLASSPATH="${JAVA_HOME}/lib"
+  export PATH="${ANDROID_JAVA_HOME}/bin:~/binary/archive:~/scripts:~/binary/tools:~/binary/archive:${PATH}"
+
+  alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
+
+  export CONF_ENV='None'
+
+  _log_default "paths"
+}
+_set_default_shell_env() {
   if [[ "$UBUNTU_VERSION" == *"14.04"* ]]; then
     CMD_APT="sudo apt-get"
   else
@@ -17,9 +39,12 @@ _set_shell_env() {
 
   export PS1="[\[\e[35;40m\]\t\[\e[0m\]] \[\033[0;94m\]\u@\h \[\e[1;32m\]\w \[\e[0m\] \n \$ "
 
-  echo "[script] Set default env - PS1"
+  _log_default "stty, PS1"
 }
-_set_gitconfig() {
+_set_default_git_env() {
+  if [ "$1" != "y" ]; then
+    return 
+  fi
   git config --global user.name "none"
   git config --global user.email "noname@noname.com"
   git config --global core.fileMode false
@@ -53,20 +78,7 @@ _set_gitconfig() {
   git config --global merge.conflictstyle diff3
   git config --global mergetool.prompt false
 
-}
-_set_default_env() {
-  export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
-  export ANDROID_JAVA_HOME=$JAVA_HOME
-  export CLASSPATH="${JAVA_HOME}/lib"
-  export PATH="${ANDROID_JAVA_HOME}/bin:~/binary/archive:~/scripts:~/binary/tools:~/binary/archive:${PATH}"
-
-  if [ "$1" = "y" ]; then
-    _set_gitconfig
-  fi
-
-  alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
-
-  export CONF_ENV='None'
+  _log_default "git"
 }
 
 #########################################################
@@ -76,7 +88,7 @@ _set_default_env() {
 reposetdir() {
   export _ANDROID_ROOT="`pwd`"
 
-  echo "[script] _ANDROID_ROOT [$_ANDROID_ROOT]"
+  _log_default "_ANDROID_ROOT [$_ANDROID_ROOT]"
 
   local MACH=`uname`
   if [ $MACH = 'Linux' ]; then
@@ -91,7 +103,7 @@ reposetdir() {
     export CCACHE_DIR="$_ANDROID_ROOT/.ccache"
     $_PATH_CCACHE/ccache -M 50G
     ulimit -S -n 1024
-    echo "[script] ccache [$_PATH_CCACHE/ccache]"
+    _log_default "ccache [$_PATH_CCACHE/ccache]"
   fi
 
   if [ $MACH = 'Linux' ]; then
@@ -118,7 +130,7 @@ repolunch() {
   reposetdir
   cd $_ANDROID_ROOT
 
-  echo "[script] source & lunching......"
+  _log_default "source & lunching......"
 
   source build/envsetup.sh
   export "`grep -r "^TARGET_PRODUCT" ../buildscript/build.log | head -n 1 | sed "s/^.*TARGET_PRODUCT/TARGET_PRODUCT/"`"
@@ -134,7 +146,7 @@ adb_wait_clean() {
 }
 adb_log_grep() {
   if [ "$1" = "" ]; then
-    echo "Usage: adb_log_grep [string]"
+    _log_default "Usage: adb_log_grep [string]"
     return
   fi
   adb_wait_clean
@@ -207,16 +219,16 @@ mk_cscope_ctags() {
   path_root_cscope=""
   if [ "$in_file" = "." ] ; then
     local path_root_cscope="."
-    echo "[script] mk_cscope_ctags ALL: ${path_root_cscope}"
+    _log_default "ALL: ${path_root_cscope}"
   elif [ ! -e "$in_file" ] ; then
     if [ -e "./cscope.paths" ]; then
       while read _file_path
       do
         path_root_cscope+="$_file_path "
       done < ./cscope.paths
-      echo "[script] mk_cscope_ctags from list file default, path: ${path_root_cscope}"
+      _log_default "from list file default, path: ${path_root_cscope}"
     else
-      echo "[script] mk_cscope_ctags: no input"
+      _log_default "no input"
     fi
   else
     while read _file_path
@@ -224,7 +236,7 @@ mk_cscope_ctags() {
       path_root_cscope+="$_file_path "
     done < $in_file
     mv $in_file cscope.paths
-    echo "[script] mk_cscope_ctags from list file: $1, path: ${path_root_cscope}"
+    _log_default "from list file: $1, path: ${path_root_cscope}"
   fi
 
   rm -rf cscope.files cscope.out tags
@@ -270,8 +282,9 @@ if [ $# -eq 1 ]; then
   fi
 fi
 
-_set_default_env $git_replace_apply
-_set_shell_env
+_set_default_env
+_set_default_shell_env
+_set_default_git_env $git_replace_apply
 
-echo "[script] Load default script"
+_log_default "Load all"
 

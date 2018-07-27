@@ -1,10 +1,21 @@
 #!/bin/bash
 
 #########################################################
+# log
+#########################################################
+
+LOG_PREFIX_CORE="[core]"
+_log_core() {
+  echo -e "${LOG_PREFIX_CORE}\t[${FUNCNAME[1]}] $1"
+}
+
+
+
+#########################################################
 # core func
 #########################################################
 
-_set_java_path() {
+_set_core_java_path() {
   if [ "$1" = "17" ]; then
     export JAVA_HOME="/usr/lib/jvm/java-7-openjdk-amd64"
   elif [ "$1" = "18" ]; then
@@ -16,9 +27,10 @@ _set_java_path() {
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
   export PATH="${PATH}:${ANDROID_JAVA_HOME}/bin:$HOME/Library/Android/sdk/platform-tools"
-  echo "[script] Set java path: [$JAVA_HOME]"
+
+  _log_core "paths"
 }
-_set_alias() {
+_set_core_alias() {
   # usage of rsync
   #   rsync -azrt --exclude '~/xxx' --exclude 'yyy' /mnt/to/ /mnt/from/
   # -e 'ssh -p 2222'
@@ -45,6 +57,26 @@ _set_alias() {
   alias tmxattach="tmux -2 attach -t "
 
   alias grepc="GREP_OPTIONS='color=auto grep"
+
+  _log_core "alias"
+}
+_set_ssh_agent() {
+  local NAME_DAEMON='ssh-agent'
+  local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
+
+  # check all pid from ssh-agent
+  for pid in $PID_DAEMON; do
+    _log_core "killed : $pid"
+    kill -9 $pid
+  done
+
+  # ssh-add newly
+  eval "$(ssh-agent -s)"
+  for key_id in `ls $HOME/.ssh/id_rsa* | grep -v '.pub'`; do
+    ssh-add $key_id
+  done
+
+  _log_core "ssh-agent"
 }
 
 #########################################################
@@ -59,7 +91,7 @@ uninstall_unused_linux_image() {
 
 install_java() {
   if [ "$1" = "" ]; then
-    echo "Usage: install_java [17/18]"
+    _log_core "Usage: install_java [17/18]"
     return
   fi
 
@@ -99,11 +131,11 @@ install_default() {
 
   IS_UBUNTU_DESKTOP=`dpkg -l ubuntu-desktop`
   if [[ "$IS_UBUNTU_DESKTOP" == *"dpkg-query: no packages found"* ]]; then
-    echo "[scripts] Ubuntu Server setting"
+    _log_core "Ubuntu Server setting"
     $CMD_APT install openssh-server rdesktop sysstat -y # Server
 
   elif [[ "$IS_UBUNTU_DESKTOP" =~ "The Ubuntu desktop system" ]]; then
-    echo "[scripts] Ubuntu Desktop setting"
+    _log_core "Ubuntu Desktop setting"
     $CMD_APT install unity-tweak-tool gnome-tweak-tool synapse numix-* \
       compizconfig-settings-manager gconf-editor -y # Desktop
   fi
@@ -128,25 +160,8 @@ _get_pid() {
   local NAME_DAEMON=$1
   local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
   for pid in $PID_DAEMON; do
-    echo "[script] get_pid: $pid"
+    _log_core "$pid"
   done
-}
-_set_ssh_agent() {
-  local NAME_DAEMON='ssh-agent'
-  local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
-
-  # check all pid from ssh-agent
-  for pid in $PID_DAEMON; do
-    echo "[script] killed : $pid"
-    kill -9 $pid
-  done
-
-  # ssh-add newly
-  eval "$(ssh-agent -s)"
-  for key_id in `ls $HOME/.ssh/id_rsa* | grep -v '.pub'`; do
-    ssh-add $key_id
-  done
-  echo "[script] Set ssh-agent"
 }
 timetake() {
   time sh -c "$1"
@@ -154,7 +169,7 @@ timetake() {
 io_check() {
   local BANDWIDTH=`dd if=/dev/zero of=./tmpfile count=4000 bs=1024k | grep copied`
   rm -rf ./tmpfile
-  echo "[script] bandwidth $BANDWIDTH"
+  _log_core "bandwidth $BANDWIDTH"
 }
 port_check() {
   netstat -tnlp
@@ -170,7 +185,7 @@ git_cleanup_oversize_lfs() {
 }
 java_change() {
   if [ "$1" = "" ]; then
-    echo "Usage: java_change [17/18]"
+    _log_core "[17/18]"
     return
   fi
 
@@ -258,7 +273,7 @@ _pgit() {
 }
 ugit() {
   if [ "$1" = "" -o "$2" = "" ]; then
-    echo "Usage: ugit [origin] [branch]"
+    _log_core "Usage: ugit [origin] [branch]"
     return
   fi
   local NOW=$(date +"%Y-%m-%d %H:%M:%S")
@@ -274,7 +289,7 @@ ugit() {
 sgit() {
   pushd .
   if [ "$1" = "" ]; then
-    echo "Usage: sgit [branch]"
+    _log_core "Usage: sgit [branch]"
     return
   fi
   cd $HOME/$1
@@ -296,5 +311,5 @@ update_scripts_core() {
 
 source $HOME/scripts/script_default.sh $1
 
-echo "[script] Load core script"
+_log_core "Load all"
 
