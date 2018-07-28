@@ -296,7 +296,7 @@ sgit() {
   git status
   popd
 }
-update_scripts_core() {
+ugc() {
   cd
   wget https://raw.githubusercontent.com/riverful/settings/master/script_core.sh
   wget https://raw.githubusercontent.com/riverful/settings/master/script_default.sh
