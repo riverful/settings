@@ -93,9 +93,15 @@ elseif s:uname =~ "Darwin"
   set tags=./tags
   if filereadable("/usr/local/bin/cscope")
     set csprg=/usr/local/bin/cscope
+     if filereadable("cscope.out")
+       cs add cscope.out
+     endif
   endif
   if filereadable("/usr/bin/cscope")
     set csprg=/usr/bin/cscope
+     if filereadable("cscope.out")
+       cs add cscope.out
+     endif
   endif
   set csto=0
   set cst
@@ -107,9 +113,15 @@ else " linux
   set tags=./tags
   if filereadable("/usr/local/bin/cscope")
     set csprg=/usr/local/bin/cscope
+     if filereadable("cscope.out")
+       cs add cscope.out
+     endif
   endif
   if filereadable("/usr/bin/cscope")
     set csprg=/usr/bin/cscope
+     if filereadable("cscope.out")
+       cs add cscope.out
+     endif
   endif
   set csto=0
   set cst
