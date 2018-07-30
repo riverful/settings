@@ -133,9 +133,9 @@ endif
 
 " xclip
 " vi -> shell (mac) : <C-c> -> <Cmd-v>
-set clipboard=unnamed
-vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
-nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+"set clipboard=unnamed
+"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+"nmap <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
 
 " For smart keyboard for iPad
 inoremap jk <esc>
