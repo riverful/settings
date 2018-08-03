@@ -43,7 +43,7 @@ _set_default_shell_env() {
 }
 _set_default_git_env() {
   if [ "$1" != "y" ]; then
-    return 
+    return
   fi
   git config --global user.name "none"
   git config --global user.email "noname@noname.com"
@@ -267,6 +267,12 @@ gitcreate() {
   git add .
   git config core.fileMode false
   git commit -a -m "Init"
+}
+_path_remove() {
+  # Delete path by parts so we can never accidentally remove sub paths
+  PATH=${PATH//":$1:"/":"} # delete any instances in the middle
+  PATH=${PATH/#"$1:"/} # delete any instance at the beginning
+  PATH=${PATH/%":$1"/} # delete any instance in the at the end
 }
 
 
