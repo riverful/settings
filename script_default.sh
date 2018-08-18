@@ -78,6 +78,8 @@ _set_default_git_env() {
   git config --global merge.conflictstyle diff3
   git config --global mergetool.prompt false
 
+  chmod 600 screenrc
+
   _log_default "git"
 }
 
