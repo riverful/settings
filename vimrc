@@ -1,3 +1,4 @@
+"============================ default setting =================================
 set number
 set mouse=a
 set nocsverb
@@ -29,18 +30,27 @@ set cmdheight=2
 set guicursor=
 set autochdir
 
-cd ~/
-"lcd ~/workspace
-
-set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags,~/workspace/android
-set csprg=/usr/local/bin/cscope
-set csto=0
-set cst
-
 syntax on
 
 let s:uname=system('uname')
 
+filetype on                   " required!
+filetype plugin indent on     " required!
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+
+"autocmd FileType c,cpp,h
+autocmd BufWritePre <buffer> :%s/\s\+$//e
+
+cd ~/
+
+"============================ cscope & ctags ==================================
+set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags,~/workspace/android
+set csto=0
+set cst
+
+
+"============================ plugin ==========================================
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-easy-align' " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'https://github.com/junegunn/vim-github-dashboard.git' " Any valid git URL is allowed
@@ -56,20 +66,11 @@ Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
 call plug#end() " Initialize plugin system
 
-filetype on                   " required!
-filetype plugin indent on     " required!
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+let Tlist_Use_Right_Window = 1
+let g:NERDTreeWinSize=30
+let Tlist_WinWidth = 35
 
-autocmd FileType c,cpp,h
-autocmd BufWritePre <buffer> :%s/\s\+$//e
-
-map <silent> <S-Insert> "+p
-imap <silent> <S-Insert> <Esc>"+p
-
-abbr #b /*********************************************************
-abbr #e *********************************************************/
-
+"============================ plugin ==========================================
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
   set termencoding=utf-8
 else
@@ -97,16 +98,21 @@ if version >= 500
   nmap ,tj :call Tj()<cr>
 endif
 
+
+"============================ system dependency ===============================
 if has('gui_running')
+  set csprg=/usr/local/bin/cscope
   set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
   colo torte
 
 elseif s:uname =~ "Darwin"
+  set csprg=/usr/local/bin/cscope
   python from powerline.vim import setup as powerline_setup
   python powerline_setup()
   python del powerline_setup
 
 elseif s:uname =~ "MINGW64_NT*"
+  set csprg=/c/Users/heungjun/scoop/shims/cscope
   set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
   colo torte
 
@@ -121,20 +127,24 @@ if has('nvim')
   colo torte
   "command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>")
   "let g:GuiFont="DejaVu Sans Mono for Powerline:h9"
-  "GuiFont DejaVu Sans Mono for Powerline:h9:cANSI:qDRAFT
+  GuiFont DejaVu Sans Mono for Powerline:h9:cANSI:qDRAFT
 
 "    tnoremap <Esc> <C-\><C-n>
+  set csprg=C:\Users\heungjun\share\util
 endif
 
-let g:minimap_show='<leader>ms'
-let g:minimap_update='<leader>mu'
-let g:minimap_close='<leader>gc'
-let g:minimap_toggle='<leader>gt'
 
-" xclip
-" vi -> shell (mac) : <C-c> -> <Cmd-v>
-set clipboard=unnamed
+
+"============================ mapping =========================================
+abbr #b /*********************************************************
+abbr #e *********************************************************/
+
+set clipboard=unnamed " xclip : vi -> shell (mac) : <C-c> -> <Cmd-v>
 vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+
+map <silent> <S-Insert> "+p
+imap <silent> <S-Insert> <Esc>"+p
+
 map! <Tab><Tab> <Esc>
 
 " Recursive shortcut
@@ -144,8 +154,8 @@ nmap <F4> :Tlist<cr>
 nmap <F5> :set ts=8 sts=8 sw=8 noexpandtab<CR>  " Kernel
 nmap <F6> :set ts=2 sts=2 sw=2 expandtab<CR>    " Android (userspace)
 nmap <F7> :set ts=4 sts=4 sw=4 expandtab<CR>    " Python
-nmap <F9> :e $MYVIMRC<CR>
-nmap <F10> :source $MYVIMRC<CR>
+nmap <F9> :source $MYVIMRC<CR>
+nmap <F10> :e $MYVIMRC<CR>
 
 nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
