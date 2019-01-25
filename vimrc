@@ -26,6 +26,7 @@ set laststatus=2
 set noshowmode
 set cmdheight=2
 set shell=bash\ --login
+set guicursor=
 
 cd ~/workspace
 lcd ~/workspace
