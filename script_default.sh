@@ -187,12 +187,14 @@ install_env() {
   wget https://github.com/riverful/settings/raw/master/screenrc
   wget https://github.com/riverful/settings/raw/master/vimrc
   wget https://github.com/riverful/settings/raw/master/taglist.vim
+  wget https://github.com/junegunn/vim-plug/raw/master/plug.vim
 
   chmod 644 screenrc
   chmod 644 vimrc
   chmod 644 taglist.vim
 
   rm -rf ~/.vim/plugin
+  rm -rf ~/.vim/plugged
   rm -rf ~/.vim
   rm -rf ~/.vimrc
   rm -rf ~/.screenrc
@@ -200,13 +202,15 @@ install_env() {
 
   mkdir ~/.vim
   mkdir ~/.vim/plugin
+  mkdir ~/.vim/autoload
 
   mv screenrc ~/.screenrc
   mv vimrc ~/.vimrc
   mv taglist.vim ~/.vim/plugin/taglist.vim
+  mv plug.vim ~/.vim/autoload/plug.vim
 
-  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
-  vim +PluginInstall +qall
+#  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
+  vim +PlugInstall +qall
 
   cd ..
   rm -rf _env_temp
