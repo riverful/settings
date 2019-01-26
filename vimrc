@@ -145,7 +145,7 @@ vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call
 map <silent> <S-Insert> "+p
 imap <silent> <S-Insert> <Esc>"+p
 
-map! <Tab><Tab> <Esc>
+map! jk <Esc>
 
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
