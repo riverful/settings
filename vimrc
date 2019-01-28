@@ -28,7 +28,7 @@ set noshowmode
 set cmdheight=2
 "set shell=bash\ --login
 set guicursor=
-set autochdir
+"set autochdir
 
 syntax on
 
