@@ -64,6 +64,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Plugin outsi
 Plug '~/my-prototype-plugin' " Unmanaged plugin (manually installed and updated)
 Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 call plug#end() " Initialize plugin system
 
 let Tlist_Use_Right_Window = 1
