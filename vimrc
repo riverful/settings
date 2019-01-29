@@ -71,8 +71,9 @@ call plug#end() " Initialize plugin system
 let Tlist_Use_Right_Window = 1
 let g:NERDTreeWinSize=30
 let Tlist_WinWidth = 35
+let g:go_version_warning = 0
 
-"============================ plugin ==========================================
+"============================ options ==========================================
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
   set termencoding=utf-8
 else
