@@ -110,9 +110,6 @@ if has('gui_running')
 
 elseif s:uname =~ "Darwin"
   set csprg=/usr/local/bin/cscope
-  python from powerline.vim import setup as powerline_setup
-  python powerline_setup()
-  python del powerline_setup
 
 elseif s:uname =~ "MINGW64_NT*"
   set csprg=/c/Users/heungjun/scoop/shims/cscope
