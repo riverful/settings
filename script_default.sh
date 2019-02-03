@@ -209,7 +209,6 @@ install_env() {
   mv taglist.vim ~/.vim/plugin/taglist.vim
   mv plug.vim ~/.vim/autoload/plug.vim
 
-#  git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/vundle
   vim +PlugInstall +qall
 
   cd ..
