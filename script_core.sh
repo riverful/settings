@@ -286,16 +286,6 @@ ugit() {
   git pull $1 master
   _pgit $1 $2
 }
-sgit() {
-  pushd .
-  if [ "$1" = "" ]; then
-    _log_core "Usage: sgit [branch]"
-    return
-  fi
-  cd $HOME/$1
-  git status
-  popd
-}
 ugc()
 {
   cd
