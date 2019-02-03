@@ -296,6 +296,14 @@ sgit() {
   git status
   popd
 }
+ugc()
+{
+  cd
+  wget https://raw.githubusercontent.com/riverful/settings/master/script_core.sh
+  wget https://raw.githubusercontent.com/riverful/settings/master/script_default.sh
+  mv script_default.sh $1
+  mv script_core.sh $1
+}
 
 
 #########################################################
