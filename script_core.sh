@@ -299,8 +299,8 @@ sgit() {
 ugc()
 {
   cd
-  wget https://raw.githubusercontent.com/riverful/settings/master/script_core.sh
-  wget https://raw.githubusercontent.com/riverful/settings/master/script_default.sh
+  wget https://github.com/riverful/settings/raw/master/script_core.sh
+  wget https://github.com/riverful/settings/raw/master/script_default.sh
   mv script_default.sh $1
   mv script_core.sh $1
 }
