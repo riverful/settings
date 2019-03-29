@@ -40,6 +40,7 @@ _set_core_alias() {
   OPTS_RSYNC_SSH="${OPTS_RSYNC} -e 'ssh -p 2222'"
   OPTS_RSYNC_SSH_DELETE="${OPTS_RSYNC_DELETE} -e 'ssh -p 2222'"
 
+  alias rsynclocal="sudo rsync ${OPTS_RSYNC_DELETE}"
   alias rsyncs="sudo rsync ${OPTS_RSYNC_SSH}"
   alias rsyncs_sync="sudo rsync ${OPTS_RSYNC_SSH_DELETE}"
 
