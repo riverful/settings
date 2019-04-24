@@ -42,7 +42,7 @@ match ExtraWhitespace /\s\+$/
 "autocmd FileType c,cpp,h
 autocmd BufWritePre <buffer> :%s/\s\+$//e
 
-cd ~/
+"cd ~/
 
 "============================ cscope & ctags ==================================
 set tags=tags,./tags,~/builds/repo/tags,~/builds/android/tags,~/workspace/android
@@ -66,6 +66,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'wincent/ferret'
+Plug 'mileszs/ack.vim'
 call plug#end() " Initialize plugin system
 
 let Tlist_Use_Right_Window = 1
