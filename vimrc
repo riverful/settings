@@ -176,3 +176,8 @@ nmap <C-g>h :!git show <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>r :!git reset --hard<CR><CR>
 nmap <C-g>d :!git diff<CR>
 nmap <C-g>s :!git status<CR>
+
+nmap <C-S-f>o :Files<CR><CR>
+nmap <C-S-f>p :Ack <C-R>=expand("<cword>")<CR><CR>
+noremap <C-w><C-Up> :resize +5<CR>
+noremap <C-w><C-Down> :resize -5<CR>
