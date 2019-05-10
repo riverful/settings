@@ -28,7 +28,9 @@ set noshowmode
 set cmdheight=2
 "set shell=bash\ --login
 set guicursor=
+
 "set autochdir
+"autocmd VimEnter * silent! cd %:p:h
 
 syntax on
 
@@ -57,7 +59,7 @@ Plug 'https://github.com/junegunn/vim-github-dashboard.git' " Any valid git URL 
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' Multiple Plug commands can be written in a single line using | separators
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " On-demand loading
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
 Plug 'fatih/vim-go', { 'tag': '*' } " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' } " Plugin options
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Plugin outside ~/.vim/plugged with post-update hook
@@ -68,12 +70,41 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'wincent/ferret'
 Plug 'mileszs/ack.vim'
+Plug 'vim-jp/vim-cpp'
+Plug 'tomasiser/vim-code-dark'
+Plug 'dunstontc/vim-vscode-theme'
+"Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'bfrg/vim-cpp-modern'
+Plug 'gdoorenbos/gd-vim-colors'
+"Plug 'ronakg/quickr-cscope.vim'
+Plug 'bbchung/clighter8'
+Plug 'bbchung/clighter'
+"Plug 'jeaye/color_coded'
 call plug#end() " Initialize plugin system
 
+"============================ NERD tree =======================================
 let Tlist_Use_Right_Window = 1
 let g:NERDTreeWinSize=30
 let Tlist_WinWidth = 35
 let g:go_version_warning = 0
+
+"============================ vim-cpp-enhanced-highlight ======================
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_experimental_simple_template_highlight = 1
+
+let g:cpp_concepts_highlight = 1
+
+"============================ vim-cpp-modern ==================================
+let g:cpp_simple_highlight = 1
+let g:cpp_named_requirements_highlight = 1
+
+""============================ vim-cpp-enhanced-highlight ======================
+let g:airline_theme = 'codedark'
+
+"let g:quickr_cscope_keymaps = 0
+"let g:quickr_cscope_use_qf_g = 1
 
 "============================ options ==========================================
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
@@ -83,9 +114,10 @@ else
 endif
 
 if &term=="xterm" || &term =~ "xterm-debian" || &term =~ "xterm-xfree86"
-  set t_Co=16
+  set t_Co=256
   set t_Sf=^[[3%dm
   set t_Sb=^[[4%dm
+  set t_ut=
   fixdel
 endif
 
@@ -119,7 +151,8 @@ elseif s:uname =~ "MINGW64_NT*"
   colo torte
 
 else " linux
-  colo torte
+"  colo dark_plus
+  colo codedark
 
 endif
 
@@ -136,6 +169,9 @@ if has('nvim')
 endif
 
 
+set hlsearch
+hi Search ctermbg=DarkBlue
+hi Search ctermfg=NONE
 
 "============================ mapping =========================================
 abbr #b /*********************************************************
@@ -156,8 +192,7 @@ nmap <F4> :Tlist<cr>
 nmap <F5> :set ts=8 sts=8 sw=8 noexpandtab<CR>  " Kernel
 nmap <F6> :set ts=2 sts=2 sw=2 expandtab<CR>    " Android (userspace)
 nmap <F7> :set ts=4 sts=4 sw=4 expandtab<CR>    " Python
-nmap <F9> :source $MYVIMRC<CR>
-nmap <F10> :e $MYVIMRC<CR>
+nmap <F10> :source $MYVIMRC<CR>:PlugInstall<CR>
 
 nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <C-[>g :cs find g <C-R>=expand("<cword>")<CR><CR>
@@ -168,6 +203,11 @@ nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-[>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
+nmap <C-S-f>o :Files<CR><CR>
+nmap <C-S-f>p :Ack <C-R>=expand("<cword>")<CR><CR>
+noremap <C-w><C-Up> :resize +5<CR>
+noremap <C-w><C-Down> :resize -5<CR>
+
 nmap <C-g>c :!git cherry-pick <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>v :!git revert <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>g :!git ll --grep=<C-R>=expand("<cword>")<CR><CR>
@@ -176,8 +216,3 @@ nmap <C-g>h :!git show <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>r :!git reset --hard<CR><CR>
 nmap <C-g>d :!git diff<CR>
 nmap <C-g>s :!git status<CR>
-
-nmap <C-S-f>o :Files<CR><CR>
-nmap <C-S-f>p :Ack <C-R>=expand("<cword>")<CR><CR>
-noremap <C-w><C-Up> :resize +5<CR>
-noremap <C-w><C-Down> :resize -5<CR>
