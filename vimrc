@@ -77,8 +77,8 @@ Plug 'dunstontc/vim-vscode-theme'
 "Plug 'bfrg/vim-cpp-modern'
 Plug 'gdoorenbos/gd-vim-colors'
 "Plug 'ronakg/quickr-cscope.vim'
-Plug 'bbchung/clighter8'
-Plug 'bbchung/clighter'
+"Plug 'bbchung/clighter8'
+"Plug 'bbchung/clighter'
 "Plug 'jeaye/color_coded'
 call plug#end() " Initialize plugin system
 
