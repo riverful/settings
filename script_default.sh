@@ -34,10 +34,18 @@ _set_default_shell_env() {
   fi
   CMD_APT_ADD_REPO="sudo add-apt-repository"
 
-  stty erase ^H
-  stty erase ^?
+  case $SHELL in
+  */zsh)
+    stty erase ^H
+    ;;
+  */bash)
+    stty erase ^H
+    stty erase ^?
+    export -f _dosunix
+    export PS1="[\[\e[35;40m\]\t\[\e[0m\]] \[\033[0;94m\]\u@\h \[\e[1;32m\]\w \[\e[0m\] \n \$ "
+    ;;
+  esac
 
-  export PS1="[\[\e[35;40m\]\t\[\e[0m\]] \[\033[0;94m\]\u@\h \[\e[1;32m\]\w \[\e[0m\] \n \$ "
 
   _log_default "stty, PS1"
 }
@@ -253,7 +261,6 @@ _dosunix() {
   dos2unix -f $1
   chmod 644 $1
 }
-export -f _dosunix
 dosunix_files() {
   find . -name "*.c" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
   find . -name "*.cpp" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
