@@ -6,7 +6,16 @@
 
 LOG_PREFIX_CORE="[core]"
 _log_core() {
-  echo -e "${LOG_PREFIX_CORE}\t[${FUNCNAME[1]}] $1"
+  case $SHELL in
+  */zsh)
+    echo -e "${LOG_PREFIX_CORE}\t[${funcstack[1]}] $1"
+    ;;
+  */bash)
+    echo -e "${LOG_PREFIX_CORE}\t[${FUNCNAME[1]}] $1"
+    ;;
+  *)
+    ;;
+  esac
 }
 
 

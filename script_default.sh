@@ -6,7 +6,16 @@
 
 LOG_PREFIX_DEF="[deflt]"
 _log_default() {
-  echo -e "${LOG_PREFIX_DEF}\t[${FUNCNAME[1]}] $1"
+  case $SHELL in
+  */zsh)
+    echo -e "${LOG_PREFIX_DEF}\t[${funcstack[1]}] $1"
+    ;;
+  */bash)
+    echo -e "${LOG_PREFIX_DEF}\t[${FUNCNAME[1]}] $1"
+    ;;
+  *)
+    ;;
+  esac
 }
 
 
