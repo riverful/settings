@@ -298,11 +298,18 @@ ugit() {
 }
 ugc()
 {
+  if [ "$1" = "" ]; then
+    _to="./scripts/"
+  else
+    _to=$1
+  fi
   cd
   wget https://github.com/riverful/settings/raw/master/script_core.sh
   wget https://github.com/riverful/settings/raw/master/script_default.sh
-  mv script_default.sh $1
-  mv script_core.sh $1
+  mv script_default.sh $_to/script_default.sh
+  mv script_core.sh $_to/script_core.sh
+  echo "$_to/script_default.sh"
+  echo "$_to/script_core.sh"
 }
 
 
