@@ -24,11 +24,11 @@ set nocompatible              " be iMproved
 set csverb
 set viminfo+=!
 set laststatus=2
+set statusline=%-10.3n
 set noshowmode
 set cmdheight=2
-"set shell=bash\ --login
-set guicursor=
 
+"set shell=bash\ --login
 "set autochdir
 "autocmd VimEnter * silent! cd %:p:h
 
@@ -56,10 +56,8 @@ set cst
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/vim-easy-align' " Shorthand notation; fetches https://github.com/junegunn/vim-easy-align
 Plug 'https://github.com/junegunn/vim-github-dashboard.git' " Any valid git URL is allowed
-"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' Multiple Plug commands can be written in a single line using | separators
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' } " On-demand loading
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
 Plug 'fatih/vim-go', { 'tag': '*' } " Using a tagged release; wildcard allowed (requires git 1.9.2 or above)
 Plug 'nsf/gocode', { 'tag': 'v.20150303', 'rtp': 'vim' } " Plugin options
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } " Plugin outside ~/.vim/plugged with post-update hook
@@ -68,14 +66,22 @@ Plug 'junegunn/fzf.vim'
 Plug 'rking/ag.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'wincent/ferret'
 Plug 'mileszs/ack.vim'
 Plug 'vim-jp/vim-cpp'
 Plug 'tomasiser/vim-code-dark'
 Plug 'dunstontc/vim-vscode-theme'
+Plug 'gdoorenbos/gd-vim-colors'
+Plug 'will133/vim-dirdiff'
+Plug 'inkarkat/vim-mark'
+Plug 'inkarkat/vim-ingo-library'
+Plug 'inkarkat/vim-MarkMarkup'
+Plug 'inkarkat/vim-PatternsOnText'
+Plug 'christoomey/vim-system-copy'
+"Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' Multiple Plug commands can be written in a single line using | separators
+"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
+"Plug 'wincent/ferret'
 "Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'bfrg/vim-cpp-modern'
-Plug 'gdoorenbos/gd-vim-colors'
 "Plug 'ronakg/quickr-cscope.vim'
 "Plug 'bbchung/clighter8'
 "Plug 'bbchung/clighter'
@@ -105,6 +111,18 @@ let g:airline_theme = 'codedark'
 
 "let g:quickr_cscope_keymaps = 0
 "let g:quickr_cscope_use_qf_g = 1
+
+""============================ vim-dirdiff ====================================
+let g:DirDiffForceLang = "en_US"
+
+""============================ mark ===========================================
+let g:mwDefaultHighlightingPalette = 'maximum'
+let g:mwAutoLoadMarks = 1
+let g:mapleader=','
+
+""============================ system-copy =====================================
+let g:system_copy#copy_command='xclip -sel clipboard'
+let g:system_copy#paste_command='xclip -sel clipboard -o'
 
 "============================ options ==========================================
 if v:lang =~ "utf8$" || v:lang =~ "UTF-8$"
@@ -177,13 +195,42 @@ hi Search ctermfg=NONE
 abbr #b /*********************************************************
 abbr #e *********************************************************/
 
-set clipboard=unnamed " xclip : vi -> shell (mac) : <C-c> -> <Cmd-v>
-vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+set clipboard=unnamedplus
 
-map <silent> <S-Insert> "+p
-imap <silent> <S-Insert> <Esc>"+p
+"yank후에 마크위치로 이동하기에, 다시 커서를 이동시킴
+vnoremap y y`>
+
+""라인단위 yank후에 마크위치로 이동하기에, 다시 커서를 이동시킴
+vnoremap Y Y`>
+
+"붙여넣기 후 붙여넣기된 끝으로 커서이동
+noremap p p`]
+
+"비주얼블럭의 내용을 클립보드로 붙여넣기
+vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+"vmap <C-c> "+y
+
+
+"Control+v키가 비주얼 블럭모드 키라서 Control+w로 대체 (에디트플러스의
+"Alt+w에서 착상)
+"noremap <C-w> <C-v>
+
+"클립보드의 내용을 vim으로 붙여넣기
+"map <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
+
+
+
+
+
+"set clipboard=unnamed " xclip : vi -> shell (mac) : <C-c> -> <Cmd-v>
+"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
+"
+"map <silent> <S-Insert> "+p
+"imap <silent> <S-Insert> <Esc>"+p
 
 map! jk <Esc>
+
 
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
@@ -216,3 +263,7 @@ nmap <C-g>h :!git show <C-R>=expand("<cword>")<CR><CR>
 nmap <C-g>r :!git reset --hard<CR><CR>
 nmap <C-g>d :!git diff<CR>
 nmap <C-g>s :!git status<CR>
+
+map <silent> <leader>2 :diffget 2<CR>
+map <silent> <leader>3 :diffget 3<CR>
+map <silent> <leader>4 :diffget 4<CR>
