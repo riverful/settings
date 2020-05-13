@@ -279,6 +279,7 @@ dosunix_files() {
   find . -name "*.cpp" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
   find . -name "*.h" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
   find . -name "*.xml" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
+  find . -name "*.xsd" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
   find . -name "Android.mk" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
   find . -name "Makefile" -not -path ".git" -exec bash -c '_dosunix "$0"' {} \;
 }
