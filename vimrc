@@ -250,8 +250,8 @@ nmap <C-[>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
 nmap <C-[>i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 nmap <C-[>d :cs find d <C-R>=expand("<cword>")<CR><CR>
 
-nmap <C-S-f>o :Files<CR><CR>
-nmap <C-S-f>p :Ack <C-R>=expand("<cword>")<CR><CR>
+nmap <C-f>f :Files<CR><CR>
+nmap <C-f>g :Ag <C-R>=expand("<cword>")<CR><CR>
 noremap <C-w><C-Up> :resize +5<CR>
 noremap <C-w><C-Down> :resize -5<CR>
 
