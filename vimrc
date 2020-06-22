@@ -35,6 +35,7 @@ set cmdheight=2
 syntax on
 
 let s:uname=system('uname')
+let s:unamer = system('uname -r')
 
 filetype on                   " required!
 filetype plugin indent on     " required!
@@ -76,7 +77,7 @@ Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-MarkMarkup'
 Plug 'inkarkat/vim-PatternsOnText'
-Plug 'christoomey/vim-system-copy'
+"Plug 'christoomey/vim-system-copy'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' Multiple Plug commands can be written in a single line using | separators
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
 "Plug 'wincent/ferret'
@@ -186,7 +187,6 @@ if has('nvim')
   set csprg=C:\Users\heungjun\share\util
 endif
 
-
 set hlsearch
 hi Search ctermbg=DarkBlue
 hi Search ctermfg=NONE
@@ -195,42 +195,15 @@ hi Search ctermfg=NONE
 abbr #b /*********************************************************
 abbr #e *********************************************************/
 
-"set clipboard=unnamedplus
-
-"yank후에 마크위치로 이동하기에, 다시 커서를 이동시킴
-"vnoremap y y`>
-
-""라인단위 yank후에 마크위치로 이동하기에, 다시 커서를 이동시킴
-"vnoremap Y Y`>
-
-"붙여넣기 후 붙여넣기된 끝으로 커서이동
-"noremap p p`]
-
-"비주얼블럭의 내용을 클립보드로 붙여넣기
-"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
-"vmap <C-c> "+y
-
-
-"Control+v키가 비주얼 블럭모드 키라서 Control+w로 대체 (에디트플러스의
-"Alt+w에서 착상)
-"noremap <C-w> <C-v>
-
-"클립보드의 내용을 vim으로 붙여넣기
-"map <C-v> :call setreg("\"",system("xclip -o -selection clipboard"))<CR>p
-
-
-
-
-
-"set clipboard=unnamed " xclip : vi -> shell (mac) : <C-c> -> <Cmd-v>
-"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>:call system("xclip -i", getreg("\""))<CR>
-"
-"map <silent> <S-Insert> "+p
-"imap <silent> <S-Insert> <Esc>"+p
+if s:unamer =~ "Microsoft"
+  echo "WSL detected."
+  vnoremap <C-c> "zy:call writefile(getreg('z', 1, 1), "/tmp/vimbuffer") \| !cat /tmp/vimbuffer \| clip.exe <CR><CR>
+  nnoremap <C-r> :r !powershell.exe -noprof Get-Clipboard<CR><CR>
+  map <silent> <S-Insert> "+p
+  imap <silent> <S-Insert> <Esc>"+p
+endif
 
 map! jk <Esc>
-
 
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
