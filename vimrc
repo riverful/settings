@@ -208,8 +208,8 @@ map! jk <Esc>
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
 if s:unamer =~ "Microsoft"
-  nmap <F3> :!source ~/scripts/script_work.sh && rclone_download_au<CR>
-  nmap <F4> :!source ~/scripts/script_work.sh && rclone_upload_au<CR>
+  nmap <F3> :!source ~/scripts/script_work.sh && rclone_download_au
+  nmap <F4> :!source ~/scripts/script_work.sh && rclone_upload_au
   nmap <F5> :!source ~/scripts/script_work.sh && mmm_remote<CR>
 endif
 nmap <F6> :NERDTreeToggle<cr>
