@@ -195,19 +195,19 @@ hi Search ctermfg=NONE
 abbr #b /*********************************************************
 abbr #e *********************************************************/
 
-set clipboard=unnamedplus
+"set clipboard=unnamedplus
 
 "yank후에 마크위치로 이동하기에, 다시 커서를 이동시킴
-vnoremap y y`>
+"vnoremap y y`>
 
 ""라인단위 yank후에 마크위치로 이동하기에, 다시 커서를 이동시킴
-vnoremap Y Y`>
+"vnoremap Y Y`>
 
 "붙여넣기 후 붙여넣기된 끝으로 커서이동
-noremap p p`]
+"noremap p p`]
 
 "비주얼블럭의 내용을 클립보드로 붙여넣기
-vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
+"vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 "vmap <C-c> y:call system("xclip -i -selection clipboard", getreg("\""))<CR>
 "vmap <C-c> "+y
 
