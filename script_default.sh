@@ -54,11 +54,11 @@ _set_default_shell_env() {
   esac
 
 
-  if [ $MACH = 'Linux' ]; then
-    setxkbmap -layout us -option ctrl:nocaps
-  elif [ $MACH = 'Darwin' ]; then
-    _log_default "Mac setting"  
-  fi
+#  if [ $MACH = 'Linux' ]; then
+#    setxkbmap -layout us -option ctrl:nocaps
+#  elif [ $MACH = 'Darwin' ]; then
+#    _log_default "Mac setting"  
+#  fi
 
   _log_default "stty, PS1"
 }
