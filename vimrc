@@ -35,7 +35,7 @@ set cmdheight=2
 syntax on
 
 let s:uname=system('uname')
-let s:unamer = system('uname -r')
+let s:unamer=system('uname -r')
 
 filetype on                   " required!
 filetype plugin indent on     " required!
@@ -207,11 +207,15 @@ map! jk <Esc>
 
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
-nmap <F3> :NERDTreeToggle<cr>
-nmap <F4> :Tlist<cr>
-nmap <F5> :set ts=8 sts=8 sw=8 noexpandtab<CR>  " Kernel
-nmap <F6> :set ts=2 sts=2 sw=2 expandtab<CR>    " Android (userspace)
-nmap <F7> :set ts=4 sts=4 sw=4 expandtab<CR>    " Python
+if s:unamer =~ "Microsoft"
+  nmap <F3> :!source ~/scripts/script_work.sh && rclone_download_au<CR>
+  nmap <F4> :!source ~/scripts/script_work.sh && rclone_upload_au<CR>
+  nmap <F5> :!source ~/scripts/script_work.sh && mmm_remote<CR>
+endif
+nmap <F6> :NERDTreeToggle<cr>
+nmap <F7> :set ts=8 sts=8 sw=8 noexpandtab<CR>  " Kernel
+nmap <F8> :set ts=2 sts=2 sw=2 expandtab<CR>    " Android (userspace)
+nmap <F9> :set ts=4 sts=4 sw=4 expandtab<CR>    " Python
 nmap <F10> :source $MYVIMRC<CR>:PlugInstall<CR>
 
 nmap <C-[>s :cs find s <C-R>=expand("<cword>")<CR><CR>
