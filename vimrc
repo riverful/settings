@@ -161,6 +161,17 @@ if has('gui_running')
   set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
   colo torte
 
+elseif has('nvim')
+  set runtimepath^=~/.vim runtimepath+=~/.vim/after
+  let &packpath = &runtimepath
+  colo torte
+  "command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>")
+  "let g:GuiFont="DejaVu Sans Mono for Powerline:h9"
+  GuiFont DejaVu Sans Mono for Powerline:h9:cANSI:qDRAFT
+
+"    tnoremap <Esc> <C-\><C-n>
+  set csprg=C:\Users\heungjun\share\util
+
 elseif s:uname =~ "Darwin"
   set csprg=/usr/local/bin/cscope
   colo codedark
@@ -184,17 +195,6 @@ else " linux
 
 endif
 
-if has('nvim')
-  set runtimepath^=~/.vim runtimepath+=~/.vim/after
-  let &packpath = &runtimepath
-  colo torte
-  "command -nargs=? Guifont call rpcnotify(0, 'Gui', 'SetFont', "<args>")
-  "let g:GuiFont="DejaVu Sans Mono for Powerline:h9"
-  GuiFont DejaVu Sans Mono for Powerline:h9:cANSI:qDRAFT
-
-"    tnoremap <Esc> <C-\><C-n>
-  set csprg=C:\Users\heungjun\share\util
-endif
 
 set hlsearch
 hi Search ctermbg=DarkBlue
