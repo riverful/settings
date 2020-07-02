@@ -163,7 +163,8 @@ if has('gui_running')
 
 elseif s:uname =~ "Darwin"
   set csprg=/usr/local/bin/cscope
-
+  colo codedark
+  
 elseif s:uname =~ "MINGW64_NT*"
   set csprg=/c/Users/heungjun/scoop/shims/cscope
   set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
@@ -175,7 +176,8 @@ elseif s:uname =~ "Linux" && s:unamer =~ "Microsoft"
   nnoremap <C-r> :r !powershell.exe -noprof Get-Clipboard<CR><CR>
   map <silent> <S-Insert> "+p
   imap <silent> <S-Insert> <Esc>"+p
-
+  colo codedark
+  
 else " linux
 "  colo dark_plus
   colo codedark
