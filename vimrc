@@ -169,6 +169,13 @@ elseif s:uname =~ "MINGW64_NT*"
   set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
   colo torte
 
+elseif s:uname =~ "Linux" && s:unamer =~ "Microsoft"
+  echo "WSL detected."
+  vnoremap <C-c> "zy:call writefile(getreg('z', 1, 1), "/tmp/vimbuffer") \| !cat /tmp/vimbuffer \| clip.exe <CR><CR>
+  nnoremap <C-r> :r !powershell.exe -noprof Get-Clipboard<CR><CR>
+  map <silent> <S-Insert> "+p
+  imap <silent> <S-Insert> <Esc>"+p
+
 else " linux
 "  colo dark_plus
   colo codedark
@@ -190,18 +197,6 @@ endif
 set hlsearch
 hi Search ctermbg=DarkBlue
 hi Search ctermfg=NONE
-
-"============================ mapping =========================================
-abbr #b /*********************************************************
-abbr #e *********************************************************/
-
-if s:unamer =~ "Microsoft"
-  echo "WSL detected."
-  vnoremap <C-c> "zy:call writefile(getreg('z', 1, 1), "/tmp/vimbuffer") \| !cat /tmp/vimbuffer \| clip.exe <CR><CR>
-  nnoremap <C-r> :r !powershell.exe -noprof Get-Clipboard<CR><CR>
-  map <silent> <S-Insert> "+p
-  imap <silent> <S-Insert> <Esc>"+p
-endif
 
 map! jk <Esc>
 
