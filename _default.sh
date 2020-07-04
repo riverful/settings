@@ -27,7 +27,7 @@ _set_default_env() {
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
-  export PATH="${ANDROID_JAVA_HOME}/bin:~/scripts:${PATH}"
+  export PATH="${ANDROID_JAVA_HOME}/bin:~/.scripts:${PATH}"
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
 
