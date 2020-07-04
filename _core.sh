@@ -317,7 +317,7 @@ ugc()
 # excute
 #########################################################
 
-source $HOME/scripts/_default.sh $1
+source $HOME/.scripts/_default.sh $1
 
 _log_core "Load all"
 
