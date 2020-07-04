@@ -299,7 +299,7 @@ ugit() {
 ugc()
 {
   if [ "$1" = "" ]; then
-    _to="./scripts/"
+    _to="~/.scripts/"
   else
     _to=$1
   fi
