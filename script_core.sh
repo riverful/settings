@@ -304,12 +304,12 @@ ugc()
     _to=$1
   fi
   cd
-  wget https://github.com/riverful/settings/raw/master/script_core.sh
-  wget https://github.com/riverful/settings/raw/master/script_default.sh
-  mv script_default.sh $_to/script_default.sh
-  mv script_core.sh $_to/script_core.sh
-  echo "$_to/script_default.sh"
-  echo "$_to/script_core.sh"
+  wget https://github.com/riverful/settings/raw/master/_core.sh
+  wget https://github.com/riverful/settings/raw/master/_default.sh
+  mv _default.sh $_to/_default.sh
+  mv _core.sh $_to/_core.sh
+  echo "$_to/_default.sh"
+  echo "$_to/_core.sh"
 }
 
 
@@ -317,7 +317,7 @@ ugc()
 # excute
 #########################################################
 
-source $HOME/scripts/script_default.sh $1
+source $HOME/scripts/_default.sh $1
 
 _log_core "Load all"
 
