@@ -67,6 +67,8 @@ _set_core_alias() {
   alias tmxattach="tmux -2 attach -t "
 
   alias grepc="GREP_OPTIONS='color=auto grep"
+  
+  alias ugs="ugit origin $_SCRIPTS"
 
   _log_core "alias"
 }
