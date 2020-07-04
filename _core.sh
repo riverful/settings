@@ -299,7 +299,7 @@ ugit() {
 ugc()
 {
   if [ "$1" = "" ]; then
-    _to="$HOME/.scripts/"
+    _to="$HOME/$_SCRIPTS/"
   else
     _to=$1
   fi
@@ -317,7 +317,7 @@ ugc()
 # excute
 #########################################################
 
-source $HOME/.scripts/_default.sh $1
+source $HOME/$_SCRIPTS/_default.sh $1
 
 _log_core "Load all"
 
