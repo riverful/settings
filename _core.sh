@@ -68,7 +68,7 @@ _set_core_alias() {
 
   alias grepc="GREP_OPTIONS='color=auto grep"
 
-  alias ugs="ugit origin $_BASE"
+  alias ugs="ugit origin $_ENV"
 
   _log_core "alias"
 }
@@ -301,7 +301,7 @@ ugit() {
 ugc()
 {
   if [ "$1" = "" ]; then
-    _to="$HOME/$_BASE/"
+    _to="$HOME/$_ENV/"
   else
     _to=$1
   fi
@@ -319,7 +319,7 @@ ugc()
 # excute
 #########################################################
 
-source $HOME/$_BASE/_default.sh $1
+source $HOME/$_ENV/_default.sh $1
 
 _log_core "Load all"
 
