@@ -67,8 +67,8 @@ _set_core_alias() {
   alias tmxattach="tmux -2 attach -t "
 
   alias grepc="GREP_OPTIONS='color=auto grep"
-  
-  alias ugs="ugit origin $_SCRIPTS"
+
+  alias ugs="ugit origin $_BASE"
 
   _log_core "alias"
 }
@@ -301,7 +301,7 @@ ugit() {
 ugc()
 {
   if [ "$1" = "" ]; then
-    _to="$HOME/$_SCRIPTS/"
+    _to="$HOME/$_BASE/"
   else
     _to=$1
   fi
@@ -319,9 +319,7 @@ ugc()
 # excute
 #########################################################
 
-export _SCRIPTS=".scripts"
-  
-source $HOME/$_SCRIPTS/_default.sh $1
+source $HOME/$_BASE/_default.sh $1
 
 _log_core "Load all"
 

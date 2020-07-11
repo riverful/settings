@@ -27,7 +27,7 @@ _set_default_env() {
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
-  export PATH="${ANDROID_JAVA_HOME}/bin:~/$_SCRIPTS:${PATH}"
+  export PATH="${ANDROID_JAVA_HOME}/bin:~/$_BASE:${PATH}"
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
 
@@ -315,6 +315,10 @@ if [ $# -eq 1 ]; then
   if [ "$1" = "y" ]; then
     git_replace_apply="y"
   fi
+fi
+
+if [ $_BASE = "" ]; then
+  export _BASE=".base"
 fi
 
 _set_default_env
