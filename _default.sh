@@ -31,6 +31,7 @@ _set_default_env() {
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
   alias gsf="git submodule foreach"
+  alias gsi="git submodule update --init --recursive"
 
   export CONF_ENV='None'
 
