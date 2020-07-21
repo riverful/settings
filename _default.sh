@@ -30,6 +30,7 @@ _set_default_env() {
   export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
+  alias gsf="git submodule foreach"
 
   export CONF_ENV='None'
 
