@@ -35,7 +35,7 @@ _set_core_java_path() {
   export CLASSPATH="${JAVA_HOME}/lib"
   export PATH="${PATH}:${ANDROID_JAVA_HOME}/bin:$HOME/Library/Android/sdk/platform-tools"
 
-  _log_core "paths"
+  _log_core "JAVA_HOME[$JAVA_HOME]"
 }
 _set_core_ssh_agent() {
   local _name_daemon='ssh-agent'
@@ -53,7 +53,7 @@ _set_core_ssh_agent() {
     ssh-add $key_id
   done
 
-  _log_core "ssh-agent"
+  _log_core "Set ssh-agent"
 }
 
 #########################################################
