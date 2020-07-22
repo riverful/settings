@@ -28,6 +28,7 @@ _set_default_env() {
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
   export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
+  export UBUNTU_VERSION=`lsb_release -a | grep "Description" | cut -d ' ' -f 2`
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
   alias gsf="git submodule foreach"
