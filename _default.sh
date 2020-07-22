@@ -27,13 +27,13 @@ _set_default_env() {
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
-  export CONF_ENV='None'
-  export UBUNTU_VERSION=`lsb_release -a | grep "Description" | cut -d ' ' -f 2`
   export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
   alias gsf="git submodule foreach"
   alias gsi="git submodule update --init --recursive"
+
+  export CONF_ENV='None'
 
   _log_default "paths"
 }
@@ -110,91 +110,28 @@ _set_default_git_env() {
 # Android
 #########################################################
 
-reposetdir() {
-  export _ANDROID_ROOT="`pwd`"
-
-  _log_default "_ANDROID_ROOT [$_ANDROID_ROOT]"
-
-  local MACH=`uname`
-  if [ $MACH = 'Linux' ]; then
-    local _RPATH_CCACHE=prebuilts/misc/linux-x86/ccache/
-  elif [ $MACH = 'Darwin' ]; then
-    local _RPATH_CCACHE=prebuilts/misc/darwin-x86/ccache/
-  fi
-  local _PATH_CCACHE="${_ANDROID_ROOT}/${_RPATH_CCACHE}"
-
-  if [ -d $_PATH_CCACHE ]; then
-    export USE_CCACHE=1
-    export CCACHE_DIR="$_ANDROID_ROOT/.ccache"
-    $_PATH_CCACHE/ccache -M 50G
-    ulimit -S -n 1024
-    _log_default "ccache [$_PATH_CCACHE/ccache]"
-  fi
-
-  if [ $MACH = 'Linux' ]; then
-    local HOST_TOOL="${_ANDROID_ROOT}/out/host/linux-x86/bin/"
-    export HOST_ADB="sudo ${HOST_TOOL}adb"
-    export HOST_FASTBOOT="sudo ${HOST_TOOL}fastboot"
-  else
-    local HOST_TOOL=""
-    export HOST_ADB="${HOST_TOOL}adb"
-    export HOST_FASTBOOT="${HOST_TOOL}fastboot"
-  fi
-
-  cd "${_ANDROID_ROOT}"
-
-  if [ -e build/envsetup.sh ] ; then
-    source build/envsetup.sh
-  fi
-}
-repolunch() {
-  if [ $CONF_ENV != 'None' ]; then
-    return
-  fi
-
-  reposetdir
-  cd $_ANDROID_ROOT
-
-  _log_default "source & lunching......"
-
-  source build/envsetup.sh
-  export "`grep -r "^TARGET_PRODUCT" ../buildscript/build.log | head -n 1 | sed "s/^.*TARGET_PRODUCT/TARGET_PRODUCT/"`"
-  export "`grep -r "^PROJECT_NAME" ../buildscript/build.log | head -n 1 | sed "s/^.*PROJECT/PROJECT/"`"
-  export "`grep -r "^SEC_TEMP_SKIP_BOOTLOADER" ../buildscript/build.log | head -n 1 | sed "s/^.*SEC_TEMP/SEC_TEMP/"`"
-  `grep -r "lunch" ../buildscript/build.log | head -n 1 | sed "s/^.*lunch/lunch/"`
-}
-
-adb_wait_clean() {
+adbwaitclean() {
   $HOST_ADB wait-for-device
   $HOST_ADB root
   $HOST_ADB logcat -c
 }
-adb_log_grep() {
+adbloggrep() {
   if [ "$1" = "" ]; then
     _log_default "Usage: adb_log_grep [string]"
     return
   fi
-  adb_wait_clean
   $HOST_ADB logcat -vthreadtime | tee tmplog | grep "$1"
 }
-adb_setprop_rawdump() {
-  adb_wait_clean
-  $HOST_ADB root
-  $HOST_ADB shell su -c setenforce 0
-  $HOST_ADB shell setprop persist.camera.feature.osd 1
-  $HOST_ADB shell setprop persist.camera.cal.awb 0
-  $HOST_ADB shell setprop persist.camera.cal.lsc 0
-  $HOST_ADB shell su -c setenforce 0
-  $HOST_ADB shell chmod 777 /data
-  $HOST_ADB shell chmod 777 /data/misc/camera
-  $HOST_ADB shell setprop persist.camera.dumpimg 1310740
-  $HOST_ADB shell setprop persist.camera.raw_yuv 1
-  $HOST_ADB shell setprop persist.camera.zsl_raw 1
-  $HOST_ADB shell setprop persist.camera.zsl_yuv 1
-  $HOST_ADB shell setprop persist.camera.dumpmetadata 1
+adbcleanloggrep() {
+  if [ "$1" = "" ]; then
+    _log_default "Usage: adb_log_grep [string]"
+    return
+  fi
+  adbwaitclean
+  $HOST_ADB logcat -vthreadtime | tee tmplog | grep "$1"
 }
-adb_key_back() {
-  adb_wait_clean
+adbkeyback() {
+  adbwaitclean
   $HOST_ADB shell input keyevent 4
 }
 
