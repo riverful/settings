@@ -37,7 +37,7 @@ _set_core_java_path() {
 
   _log_core "paths"
 }
-_set_ssh_agent() {
+_set_core_ssh_agent() {
   local _name_daemon='ssh-agent'
   local _pid_daemon=`ps -ef | grep $_name_daemon | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
 
