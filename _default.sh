@@ -13,8 +13,6 @@ _log_default() {
   */bash)
     echo -e "${LOG_PREFIX_DEF}\t[${FUNCNAME[1]}] $1"
     ;;
-  *)
-    ;;
   esac
 }
 
@@ -24,26 +22,20 @@ _log_default() {
 #########################################################
 
 _set_default_env() {
+  local MACH=`uname`
+  if [ $MACH = 'Linux' ]; then
+    export UBUNTU_VERSION=`lsb_release -a | grep "Description" | cut -d ' ' -f 2`
+  fi
+
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
   export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
 
+  # alias
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
   alias gsf="git submodule foreach"
   alias gsi="git submodule update --init --recursive"
-
-  export CONF_ENV='None'
-
-  _log_default "paths"
-}
-_set_default_shell_env() {
-  if [[ "$UBUNTU_VERSION" == *"14.04"* ]]; then
-    CMD_APT="sudo apt-get"
-  else
-    CMD_APT="sudo apt"
-  fi
-  CMD_APT_ADD_REPO="sudo add-apt-repository"
 
   stty erase '^H'
   stty erase '^?'
@@ -55,14 +47,9 @@ _set_default_shell_env() {
     ;;
   esac
 
-
-#  if [ $MACH = 'Linux' ]; then
 #    setxkbmap -layout us -option ctrl:nocaps
-#  elif [ $MACH = 'Darwin' ]; then
-#    _log_default "Mac setting"
-#  fi
 
-  _log_default "stty, PS1"
+  _log_default "paths, stty, PS1"
 }
 _set_default_git_env() {
   if [ "$1" != "y" ]; then
@@ -261,7 +248,6 @@ if [ $_ENV = "" ]; then
 fi
 
 _set_default_env
-_set_default_shell_env
 _set_default_git_env $git_replace_apply
 
 _log_default "Load all"
