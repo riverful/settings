@@ -37,19 +37,6 @@ _set_core_java_path() {
 
   _log_core "paths"
 }
-_set_core_alias() {
-  alias screen_new="screen -s bash -S "
-  alias screen_ls="screen -ls"
-  alias screen_attach="screen -dr "
-
-  alias tmxnew="tmux -2 new -s "
-  alias tmxls="tmux -2 ls"
-  alias tmxattach="tmux -2 attach -t "
-
-  alias grepc="GREP_OPTIONS='color=auto grep"
-
-  _log_core "alias"
-}
 _set_ssh_agent() {
   local _name_daemon='ssh-agent'
   local _pid_daemon=`ps -ef | grep $_name_daemon | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
