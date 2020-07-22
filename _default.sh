@@ -27,14 +27,13 @@ _set_default_env() {
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
-  export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
+  export CONF_ENV='None'
   export UBUNTU_VERSION=`lsb_release -a | grep "Description" | cut -d ' ' -f 2`
+  export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
 
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
   alias gsf="git submodule foreach"
   alias gsi="git submodule update --init --recursive"
-
-  export CONF_ENV='None'
 
   _log_default "paths"
 }
