@@ -22,11 +22,6 @@ _log_default() {
 #########################################################
 
 _set_default_env() {
-  local MACH=`uname`
-  if [ $MACH = 'Linux' ]; then
-    export UBUNTU_VERSION=`lsb_release -a | grep "Description" | cut -d ' ' -f 2`
-  fi
-
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
@@ -39,7 +34,15 @@ _set_default_env() {
 
   stty erase '^H'
   stty erase '^?'
+#    setxkbmap -layout us -option ctrl:nocaps
 
+  # according to mach
+  local MACH=`uname`
+  if [ $MACH = 'Linux' ]; then
+    export UBUNTU_VERSION=`lsb_release -a | grep "Description" | cut -d ' ' -f 2`
+  fi
+
+  # according to shell
   case $SHELL in
   */bash)
     export -f _dosunix
@@ -47,14 +50,13 @@ _set_default_env() {
     ;;
   esac
 
-#    setxkbmap -layout us -option ctrl:nocaps
-
-  _log_default "paths, stty, PS1"
+  _log_default "PATH, stty, alias, PS1"
 }
 _set_default_git_env() {
   if [ "$1" != "y" ]; then
     return
   fi
+
   git config --global user.name "none"
   git config --global user.email "noname@noname.com"
   git config --global core.fileMode false
@@ -87,8 +89,6 @@ _set_default_git_env() {
   git config --global merge.tool vimdiff
   git config --global merge.conflictstyle diff3
   git config --global mergetool.prompt false
-
-  chmod 600 screenrc
 
   _log_default "git"
 }
@@ -136,7 +136,7 @@ install_env() {
   wget https://github.com/riverful/settings/raw/master/taglist.vim
   wget https://github.com/junegunn/vim-plug/raw/master/plug.vim
 
-  chmod 644 screenrc
+  chmod 600 screenrc
   chmod 644 vimrc
   chmod 644 taglist.vim
 

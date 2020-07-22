@@ -13,8 +13,6 @@ _log_core() {
   */bash)
     echo -e "${LOG_PREFIX_CORE}\t[${FUNCNAME[1]}] $1"
     ;;
-  *)
-    ;;
   esac
 }
 
