@@ -38,24 +38,6 @@ _set_core_java_path() {
   _log_core "paths"
 }
 _set_core_alias() {
-  # usage of rsync
-  #   rsync -azrt --exclude '~/xxx' --exclude 'yyy' /mnt/to/ /mnt/from/
-  # -e 'ssh -p 2222'
-
-  OPTS_RSYNC="-avzogc --stats"
-  OPTS_RSYNC_DELETE="-avzogc --stats --delete"
-  OPTS_RSYNC_SSH="${OPTS_RSYNC} -e 'ssh -p 2222'"
-  OPTS_RSYNC_SSH_DELETE="${OPTS_RSYNC_DELETE} -e 'ssh -p 2222'"
-
-  alias rsynclocal="sudo rsync ${OPTS_RSYNC_DELETE}"
-  alias rsyncs="sudo rsync ${OPTS_RSYNC_SSH}"
-  alias rsyncs_sync="sudo rsync ${OPTS_RSYNC_SSH_DELETE}"
-
-  alias du_sh_sort="du -sh * | sort -nr"
-  alias du_sk_sort="du -sk * | sort -nr"
-  alias adb_host='${HOST_ADB}'
-  alias fastboot_host='${HOST_FASTBOOT}'
-
   alias screen_new="screen -s bash -S "
   alias screen_ls="screen -ls"
   alias screen_attach="screen -dr "
@@ -66,16 +48,14 @@ _set_core_alias() {
 
   alias grepc="GREP_OPTIONS='color=auto grep"
 
-  alias ugs="ugit origin $_ENV"
-
   _log_core "alias"
 }
 _set_ssh_agent() {
-  local NAME_DAEMON='ssh-agent'
-  local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
+  local _name_daemon='ssh-agent'
+  local _pid_daemon=`ps -ef | grep $_name_daemon | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
 
   # check all pid from ssh-agent
-  for pid in $PID_DAEMON; do
+  for pid in $_pid_daemon; do
     _log_core "killed : $pid"
     kill -9 $pid
   done
@@ -98,7 +78,6 @@ uninstall_unused_linux_image() {
     egrep -v "linux-image-$(uname -r)|linux-image-generic" | \
     while read n; do $CMD_APT -y remove $n; done
 }
-
 install_java() {
   if [ "$1" = "" ]; then
     _log_core "Usage: install_java [17/18]"
@@ -167,23 +146,16 @@ _parse_git_branch () {
   git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 _get_pid() {
-  local NAME_DAEMON=$1
-  local PID_DAEMON=`ps -ef | grep $NAME_DAEMON | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
-  for pid in $PID_DAEMON; do
+  local _name_daemon=$1
+  local _pid_daemon=`ps -ef | grep $_name_daemon | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
+  for pid in $_pid_daemon; do
     _log_core "$pid"
   done
-}
-timetake() {
-  time sh -c "$1"
 }
 io_check() {
   local BANDWIDTH=`dd if=/dev/zero of=./tmpfile count=4000 bs=1024k | grep copied`
   rm -rf ./tmpfile
   _log_core "bandwidth $BANDWIDTH"
-}
-port_check() {
-  netstat -tnlp
-  nmap localhost
 }
 git_cleanup_oversize_lfs() {
   if [ -f $HOME/binary ] ; then
@@ -205,9 +177,6 @@ java_change() {
   sudo update-alternatives --config javac
 
   java -version
-}
-git_recover() {
-  git fsck; git gc; git prune; git repack; git fsck;
 }
 git_solve_conflict() {
  vi `git diff &> log && cat log | grep "diff" | cut -f 3 -d " "` && rm -rf diff

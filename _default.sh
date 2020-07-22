@@ -28,9 +28,15 @@ _set_default_env() {
   export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
 
   # alias
+  alias ugs="ugit origin $_ENV"
+  alias ugr="source $HOME/$_ENV/setup.sh"
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
+  alias timetake="time sh -c "
+  alias portcheck="netstat -tnlp ; nmap localhost"
   alias gsf="git submodule foreach"
   alias gsi="git submodule update --init --recursive"
+  alias git_recover="git fsck ; git gc ; git prune ; git repack ; git fsck "
+  alias networkhost="nmap -sn 192.168.2.0/24 | grep \"Nmap scan\" "
 
   stty erase '^H'
   stty erase '^?'
