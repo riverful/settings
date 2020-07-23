@@ -84,45 +84,6 @@ install_java() {
   $CMD_APT update
   $CMD_APT install $PKG_JDK -y
 }
-install_dev_android() {
-  install_java 17
-  install_java 18
-  $CMD_APT install git-core gnupg flex bison gperf build-essential \
-    zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 \
-    lib32ncurses5-dev x11proto-core-dev libx11-dev lib32z-dev ccache \
-    libgl1-mesa-dev libxml2-utils xsltproc unzip -y
-  $CMD_APT autoremove
-}
-install_default() {
-  if [[ "$UBUNTU_VERSION" == *"14.04"* ]]; then
-    $CMD_APT_ADD_REPO ppa:jonathonf/vim -y # newest vim
-  fi
-
-  $CMD_APT update
-
-  $CMD_APT install cmake clang vim ctags cscope htop tree screen python-dev \
-    gparted python-pip synapse jq -y
-
-  pip install --upgrad pip
-
-  IS_UBUNTU_DESKTOP=`dpkg -l ubuntu-desktop`
-  if [[ "$IS_UBUNTU_DESKTOP" == *"dpkg-query: no packages found"* ]]; then
-    _log_core "Ubuntu Server setting"
-    $CMD_APT install openssh-server rdesktop sysstat -y # Server
-
-  elif [[ "$IS_UBUNTU_DESKTOP" =~ "The Ubuntu desktop system" ]]; then
-    _log_core "Ubuntu Desktop setting"
-    $CMD_APT install unity-tweak-tool gnome-tweak-tool synapse numix-* \
-      compizconfig-settings-manager gconf-editor -y # Desktop
-  fi
-
-  $CMD_APT autoremove
-}
-install_all_pkgs() {
-  install_default
-  install_env
-  install_dev_android
-}
 
 
 #########################################################
