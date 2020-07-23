@@ -25,7 +25,7 @@ _set_default_env() {
   export JAVA_HOME="/usr/lib/jvm/jdk1.7.0_75"
   export ANDROID_JAVA_HOME=$JAVA_HOME
   export CLASSPATH="${JAVA_HOME}/lib"
-  export PATH="${ANDROID_JAVA_HOME}/bin:~/$_ENV:${PATH}"
+  export PATH="${ANDROID_JAVA_HOME}/bin:$HOME/$_ENV:${PATH}"
 
   # alias
   alias ugs="ugit origin $_ENV"
@@ -146,21 +146,21 @@ install_env() {
   chmod 644 vimrc
   chmod 644 taglist.vim
 
-  rm -rf ~/.vim/plugin
-  rm -rf ~/.vim/plugged
-  rm -rf ~/.vim
-  rm -rf ~/.vimrc
-  rm -rf ~/.screenrc
-  rm -rf ~/.tmux.conf
+  rm -rf $HOME/.vim/plugin
+  rm -rf $HOME/.vim/plugged
+  rm -rf $HOME/.vim
+  rm -rf $HOME/.vimrc
+  rm -rf $HOME/.screenrc
+  rm -rf $HOME/.tmux.conf
 
-  mkdir ~/.vim
-  mkdir ~/.vim/plugin
-  mkdir ~/.vim/autoload
+  mkdir $HOME/.vim
+  mkdir $HOME/.vim/plugin
+  mkdir $HOME/.vim/autoload
 
-  mv screenrc ~/.screenrc
-  mv vimrc ~/.vimrc
-  mv taglist.vim ~/.vim/plugin/taglist.vim
-  mv plug.vim ~/.vim/autoload/plug.vim
+  mv screenrc $HOME/.screenrc
+  mv vimrc $HOME/.vimrc
+  mv taglist.vim $HOME/.vim/plugin/taglist.vim
+  mv plug.vim $HOME/.vim/autoload/plug.vim
 
   vim +PlugInstall +qall
 
