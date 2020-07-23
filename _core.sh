@@ -42,7 +42,7 @@ _set_core_ssh_agent() {
   local _pid_daemon=`ps -ef | grep $_name_daemon | grep -v 'grep' | sed 's/ \{1,10\}/:/g' | sed 's/^://g' | cut -f 2 -d ":"`
 
   # check all pid from ssh-agent
-  for pid in $_pid_daemon; do
+  for pid in ${_pid_daemon[@]}; do
     _log_core "killed : $pid"
     kill -9 $pid
   done
