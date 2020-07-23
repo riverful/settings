@@ -113,7 +113,7 @@ adbloggrep() {
     _log_default "Usage: adb_log_grep [string]"
     return
   fi
-  $HOST_ADB logcat -vthreadtime | tee tmplog | grep "$1"
+  $HOST_ADB logcat -v time | tee tmplog | grep "$1"
 }
 adbcleanloggrep() {
   if [ "$1" = "" ]; then
