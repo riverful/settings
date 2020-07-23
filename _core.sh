@@ -181,6 +181,17 @@ git_dev_master_diffs() {
     git --no-pager log -1 --oneline $i | sed '/Merge/d' ;
   done
 }
+gowork() {
+  local _work_date=$(date +"%Y_%m%d")
+  local _work_folder="$HOME/workspace/$_work_date"
+  
+  if [ -d "$_work_folder" ] ; then
+    cd $_work_folder
+  else
+    echo "Newly make today folder."
+    mkdir $_work_folder
+  fi
+}
 
 
 #########################################################
