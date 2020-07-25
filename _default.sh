@@ -28,7 +28,7 @@ _set_default_env() {
   export PATH="${ANDROID_JAVA_HOME}/bin:$HOME/$_ENV:${PATH}"
 
   # alias
-  alias ugs="ugit origin $_ENV"
+  alias ugs="ugit origin $_ENV ; cd $HOME"
   alias ugr="source $HOME/$_ENV/setup.sh"
   alias mkdird="mkdir `date '+%m%d'` ; cd `date '+%m%d'`"
   alias timetake="time sh -c "
