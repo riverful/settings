@@ -200,7 +200,7 @@ set hlsearch
 hi Search ctermbg=DarkBlue
 hi Search ctermfg=NONE
 
-map! jk <Esc>
+"map! jk <Esc>
 
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
