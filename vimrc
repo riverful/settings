@@ -17,7 +17,7 @@ set sel=exclusive
 set bg=dark
 set colorcolumn=80
 set ff=unix
-set ts=2 sts=2 sw=2 expandtab  " For Android (userspace)
+"set ts=2 sts=2 sw=2 expandtab  " For Android (userspace)
 set list
 set lcs=tab:>-
 set nocompatible              " be iMproved
@@ -77,6 +77,11 @@ Plug 'inkarkat/vim-mark'
 Plug 'inkarkat/vim-ingo-library'
 Plug 'inkarkat/vim-MarkMarkup'
 Plug 'inkarkat/vim-PatternsOnText'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'blueyed/vim-diminactive'
+Plug 'mcchrish/nnn.vim'
 "Plug 'christoomey/vim-system-copy'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' Multiple Plug commands can be written in a single line using | separators
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
@@ -120,6 +125,17 @@ let g:DirDiffForceLang = "en_US"
 let g:mwDefaultHighlightingPalette = 'maximum'
 let g:mwAutoLoadMarks = 1
 let g:mapleader=','
+
+""============================ vim-indent-guidline ============================
+"help indent-guides
+"let g:indent_guides_enable_on_vim_startup = 1 "" Auto start
+"let g:indent_guides_start_level = 2
+"let g:indent_guides_guide_size = 1
+
+"hi IndentGuidesOdd  ctermbg=black
+"hi IndentGuidesEven ctermbg=darkgrey
+"hi IndentGuidesOdd  ctermbg=white
+"hi IndentGuidesEven ctermbg=lightgrey
 
 ""============================ system-copy =====================================
 let g:system_copy#copy_command='xclip -sel clipboard'
@@ -175,7 +191,7 @@ elseif has('nvim')
 elseif s:uname =~ "Darwin"
   set csprg=/usr/local/bin/cscope
   colo codedark
-  
+
 elseif s:uname =~ "MINGW64_NT*"
   set csprg=/c/Users/heungjun/scoop/shims/cscope
   set guifont=DejaVu_Sans_Mono_for_Powerline:h9:cANSI:qDRAFT
@@ -188,7 +204,7 @@ elseif s:uname =~ "Linux" && s:unamer =~ "Microsoft"
   map <silent> <S-Insert> "+p
   imap <silent> <S-Insert> <Esc>"+p
   colo codedark
-  
+
 else " linux
 "  colo dark_plus
   colo codedark
