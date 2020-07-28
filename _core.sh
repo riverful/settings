@@ -145,7 +145,7 @@ git_dev_master_diffs() {
 gowork() {
   local _work_date=$(date +"%Y_%m%d")
   local _work_folder="$HOME/workspace/$_work_date"
-  
+
   if [ -d "$_work_folder" ] ; then
     cd $_work_folder
   else
@@ -217,11 +217,12 @@ ugit() {
   local NOW=$(date +"%Y-%m-%d %H:%M:%S")
   cd $HOME/$2
   git remote update $1
-  git fetch $1
-  git co master
+#  git fetch $1
+#  git co master
   git add .
   git commit -a -m "$NOW"
-  git pull $1 master
+  git rebase origin/master
+#  git pull $1 master
   _pgit $1 $2
 }
 ugc()
