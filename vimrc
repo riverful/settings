@@ -79,9 +79,13 @@ Plug 'inkarkat/vim-MarkMarkup'
 Plug 'inkarkat/vim-PatternsOnText'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
 Plug 'blueyed/vim-diminactive'
 Plug 'mcchrish/nnn.vim'
+if s:uname =~ "Linux" && s:unamer =~ "Microsoft"
+  echo "WSL conf."
+else
+  Plug 'tpope/vim-fugitive'
+endif
 "Plug 'christoomey/vim-system-copy'
 "Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets' Multiple Plug commands can be written in a single line using | separators
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable' } " Using a non-master branch
