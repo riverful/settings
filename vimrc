@@ -84,6 +84,7 @@ Plug 'mcchrish/nnn.vim'
 if s:uname =~ "Linux" && s:unamer =~ "Microsoft"
   echo "WSL conf."
 else
+  echo "No WSL conf."
   Plug 'tpope/vim-fugitive'
 endif
 "Plug 'christoomey/vim-system-copy'
