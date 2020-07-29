@@ -36,6 +36,7 @@ syntax on
 
 let s:uname=system('uname')
 let s:unamer=system('uname -r')
+let s:hostname=system('hostname')
 
 filetype on                   " required!
 filetype plugin indent on     " required!
@@ -81,10 +82,8 @@ Plug 'nathanaelkane/vim-indent-guides'
 Plug 'airblade/vim-gitgutter'
 Plug 'blueyed/vim-diminactive'
 Plug 'mcchrish/nnn.vim'
-if s:uname =~ "Linux" && s:unamer =~ "Microsoft"
-  echo "WSL conf."
-else
-  echo "No WSL conf."
+if s:hostname =~ "river"
+  echo "river conf."
   Plug 'tpope/vim-fugitive'
 endif
 "Plug 'christoomey/vim-system-copy'
