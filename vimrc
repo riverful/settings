@@ -17,7 +17,7 @@ set sel=exclusive
 set bg=dark
 set colorcolumn=80
 set ff=unix
-"set ts=2 sts=2 sw=2 expandtab  " For Android (userspace)
+set ts=2 sts=2 sw=2 expandtab  " For Android (userspace)
 set list
 set lcs=tab:>-
 set nocompatible              " be iMproved
