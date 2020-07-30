@@ -223,12 +223,9 @@ ugit() {
   local NOW=$(date +"%Y-%m-%d %H:%M:%S")
   cd $HOME/$2
   git remote update $1
-#  git fetch $1
-#  git co master
   git add .
   git commit -a -m "$NOW"
   git rebase origin/master
-#  git pull $1 master
   _pgit $1 $2
 }
 ugc()
