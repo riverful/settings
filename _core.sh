@@ -242,6 +242,9 @@ ugc()
   mv _core.sh $_to/_core.sh
   echo "$_to/_default.sh"
   echo "$_to/_core.sh"
+  cd $_ENV
+  git diff
+  cd 
 }
 
 
