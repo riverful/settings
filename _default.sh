@@ -54,6 +54,12 @@ _set_default_env() {
     export -f _dosunix
     export PS1="[\[\e[35;40m\]\t\[\e[0m\]] \[\033[0;94m\]\u@\h \[\e[1;32m\]\w \[\e[0m\] \n \$ "
     ;;
+  */zsh)
+    export PROMPT='
+%{$fg_bold[blue]%} %M %{$fg_bold[green]%}%~%{$reset_color%}$(git_prompt_info) ⌚ %{$fg_bold[red]%}%*%{$reset_color%}
+$ '
+    export RPROMPT='$(ruby_prompt_info)'
+    ;;
   esac
 
   _log_default "PATH, stty, alias, PS1"
@@ -95,7 +101,7 @@ _set_default_git_env() {
   git config --global merge.tool vimdiff
   git config --global merge.conflictstyle diff3
   git config --global mergetool.prompt false
-  
+
   git config --global oh-my-zsh.hide-dirty 1
 
   _log_default "git"
