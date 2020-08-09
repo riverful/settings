@@ -95,6 +95,8 @@ _set_default_git_env() {
   git config --global merge.tool vimdiff
   git config --global merge.conflictstyle diff3
   git config --global mergetool.prompt false
+  
+  git config --global oh-my-zsh.hide-dirty 1
 
   _log_default "git"
 }
