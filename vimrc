@@ -220,7 +220,18 @@ set hlsearch
 hi Search ctermbg=DarkBlue
 hi Search ctermfg=NONE
 
-"map! jk <Esc>
+"" For Mobile keyboard like iPhone
+"map! jkjk <Esc>
+map! eee <Esc>
+nmap eee <Esc>
+noremap eee <Esc>
+
+nmap qqq :q!<CR>
+nmap www :w!
+nmap wqq :wq!<CR>
+nmap vvv <S-v>
+nmap fff :Files<CR><CR>
+nmap agg :Ag <C-R>=expand("<cword>")<CR><CR>
 
 " Recursive shortcut
 nmap <F2> :redir @a<CR>:g//<CR>:redir END<CR>:new<CR>:put! a<CR><CR>
