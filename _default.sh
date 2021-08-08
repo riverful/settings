@@ -38,6 +38,11 @@ _set_default_env() {
   alias git_recover="git fsck ; git gc ; git prune ; git repack ; git fsck "
   alias networkhost="nmap -sn 192.168.2.0/24 | grep \"Nmap scan\" "
 
+  alias rcls="rclone ls -v "
+  alias rclsd="rclone lsd -v "
+  alias rccopy="rclone copy -v "
+  alias rcrmdir="rclone purge -v "
+
   stty erase '^H'
   stty erase '^?'
 #    setxkbmap -layout us -option ctrl:nocaps
