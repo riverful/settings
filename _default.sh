@@ -42,6 +42,7 @@ _set_default_env() {
   alias rclsd="rclone lsd -v "
   alias rccopy="rclone copy -v "
   alias rcrmdir="rclone purge -v "
+  alias rcshow="rclone config show "
 
   stty erase '^H'
   stty erase '^?'
