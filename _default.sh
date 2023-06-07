@@ -68,6 +68,8 @@ $ '
     ;;
   esac
 
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+
   _log_default "PATH, stty, alias, PS1"
 }
 _set_default_git_env() {
